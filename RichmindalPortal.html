@@ -864,8 +864,8 @@ tbody tr:last-child td { border-bottom:none; }
  <div class="topnav-right">
  <!-- Notification Bell -->
  <div style="position:relative;">
- <div class="notif-btn" onclick="toggleNotif()" id="notifBtn">
- 
+ <div class="notif-btn" onclick="toggleNotif()" id="notifBtn" title="Notifications">
+ &#128276;
  <div class="notif-badge" id="notifBadge">3</div>
  </div>
  <div class="notif-dropdown" id="notifDropdown">
@@ -1194,16 +1194,19 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  <div class="forum-compose">
  <div style="display:flex;gap:10px;margin-bottom:12px;align-items:flex-start;">
- <div class="mini-avatar" style="background:linear-gradient(135deg,var(--blue),var(--gold));width:36px;height:36px;font-size:14px;">A</div>
+ <div class="mini-avatar" id="forumUserAvatar" style="background:linear-gradient(135deg,var(--blue),var(--gold));width:36px;height:36px;font-size:14px;">A</div>
  <div style="flex:1;">
  <textarea id="forumCompose" placeholder="Ask a question, share notes, or tag @professor / @registrar..."></textarea>
+ <div id="forumAttachPreview" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>
  </div>
  </div>
+ <input type="file" id="forumFileInput" style="display:none;" multiple onchange="handleForumAttach(this,'file')">
+ <input type="file" id="forumPhotoInput" style="display:none;" multiple accept="image/*,video/*" onchange="handleForumAttach(this,'photo')">
  <div class="forum-compose-actions">
  <div class="forum-compose-tools">
- <button class="attachment-btn"> Attach File</button>
- <button class="attachment-btn"> Photo/Video</button>
- <button class="attachment-btn"> Link</button>
+ <button class="attachment-btn" onclick="document.getElementById('forumFileInput').click()">Attach File</button>
+ <button class="attachment-btn" onclick="document.getElementById('forumPhotoInput').click()">Photo/Video</button>
+ <button class="attachment-btn" onclick="addForumLink()">Link</button>
  </div>
  <button class="btn-action primary" onclick="submitForumPost()">Post →</button>
  </div>
@@ -1764,18 +1767,25 @@ const SUBJECTS = [
 ];
 
 const DEPARTMENTS = [
- { name:'College of Information Technology', icon:'', profs:[
- {name:'Prof. Jose Dela Cruz',title:'Lead Faculty · MIT',subjects:'IT401, IT301, IT202',meet:'https://meet.google.com/abc',schedule:'MWF 8:00–9:00 AM'},
- {name:'Prof. Ana Reyes',title:'Faculty · MS-CS',subjects:'IT301, IT203',meet:'https://meet.google.com/def',schedule:'TTH 1:00–2:30 PM'},
+ { name:'College of Information Technology', profs:[
+  {name:'Prof. Ann Gloghienette Perez', title:'Lead Faculty', subjects:'IT401, IT402, IT403, IT404, IT201, IT202', meet:'https://meet.google.com/abc', schedule:'MWF 8:00–9:00 AM'},
+  {name:'Prof. Rhona Joy Tanghian', title:'Faculty', subjects:'IT301, IT203, CS101, CS102, CS103', meet:'https://meet.google.com/def', schedule:'TTH 1:00–2:30 PM'},
  ]},
- { name:'College of Business & Accountancy', icon:'', profs:[
- {name:'Prof. Carlos Mendoza',title:'Faculty · CPA, MBA',subjects:'AC401, AC402, AC403',meet:'https://zoom.us/j/123456',schedule:'MWF 10:00–11:30 AM'},
+ { name:'College of Business & Accountancy', profs:[
+  {name:'Prof. Leslie Martinez', title:'Faculty · CPA', subjects:'AC401, AC402, AC403, AC404', meet:'https://zoom.us/j/123456', schedule:'MWF 10:00–11:30 AM'},
+  {name:'Prof. Ariel Gamao', title:'Faculty', subjects:'AC401, AC402', meet:'https://meet.google.com/gam', schedule:'TTH 9:00–10:30 AM'},
  ]},
- { name:'College of Nursing', icon:'', profs:[
- {name:'Prof. Maria Belen Santos',title:'Dean · RN, MAN',subjects:'NU101, NU102, NU103',meet:'https://meet.google.com/ghi',schedule:'TTH 7:00–10:00 AM'},
+ { name:'College of Nursing', profs:[
+  {name:'Prof. Jonah Mae Parrilla', title:'Faculty · RN', subjects:'NU101, NU102, NU103', meet:'https://meet.google.com/ghi', schedule:'TTH 7:00–10:00 AM'},
  ]},
- { name:'College of Engineering', icon:'', profs:[
- {name:'Prof. Roberto Cruz',title:'Faculty · CE, MS-CE',subjects:'CE301, CE302, CE303',meet:'https://meet.google.com/jkl',schedule:'MWF 1:00–3:00 PM'},
+ { name:'College of Engineering', profs:[
+  {name:'Prof. Edgar Ramirez', title:'Faculty · CE', subjects:'CE301, CE302, CE303, CE304', meet:'https://meet.google.com/jkl', schedule:'MWF 1:00–3:00 PM'},
+ ]},
+ { name:'General Education Department', profs:[
+  {name:'Prof. Sheryl May Flores', title:'Faculty', subjects:'GE101, GE102, GE103, GE104, PE001, PE004', meet:'https://meet.google.com/sfl', schedule:'MWF 11:00 AM–12:00 PM'},
+ ]},
+ { name:'College of Computer Science', profs:[
+  {name:'Prof. Daphne Magtibay', title:'Faculty', subjects:'CS101, CS102, CS103', meet:'https://meet.google.com/dmt', schedule:'TTH 2:30–4:00 PM'},
  ]},
 ];
 
@@ -2044,6 +2054,8 @@ function doLogin() {
  renderForum();
  renderEvents();
  renderCalendar();
+ var fa = document.getElementById('forumUserAvatar');
+ if(fa) fa.textContent = initials(found.display);
  const cd = document.getElementById('currentDate');
  if(cd) cd.textContent = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
  // Set email displays (no obfuscation)
@@ -2735,35 +2747,95 @@ function viewSubject(code) {
  DEPARTMENTS
  */
 function renderDepartments() {
- const el = document.getElementById('departmentsList');
+ var el = document.getElementById('departmentsList');
  if(!el) return;
- el.innerHTML = DEPARTMENTS.map(dept => `
- <div class="dept-section">
- <div class="dept-header">
- <div class="dept-circle">${dept.icon}</div>
- <div>
- <div class="dept-title">${dept.name}</div>
- <div class="dept-sub">${dept.profs.length} Faculty Member${dept.profs.length!==1?'s':''}</div>
- </div>
- </div>
- <div class="prof-cards-grid">
- ${dept.profs.map(p => `
- <div class="prof-card">
- <div class="prof-card-top">
- <div class="prof-avatar">${initials(p.name)}</div>
- <div>
- <div class="prof-name">${p.name}</div>
- <div class="prof-title">${p.title}</div>
- </div>
- </div>
- <div class="prof-subjects"> ${p.subjects}</div>
- <a class="class-link" href="${p.meet}" target="_blank"> Join Online Class</a>
- <div class="class-time"> ${p.schedule}</div>
- </div>
- `).join('')}
- </div>
- </div>
- `).join('');
+ var isAdmin = currentUser && currentUser.role === 'Administrator';
+ var html = '';
+ for(var d=0;d<DEPARTMENTS.length;d++){
+  var dept = DEPARTMENTS[d];
+  html += '<div class="dept-section">';
+  html += '<div class="dept-header" style="display:flex;align-items:center;justify-content:space-between;">';
+  html += '<div style="display:flex;align-items:center;gap:12px;">';
+  html += '<div class="dept-circle"></div>';
+  html += '<div><div class="dept-title">' + dept.name + '</div>';
+  html += '<div class="dept-sub">' + dept.profs.length + ' Faculty Member' + (dept.profs.length!==1?'s':'') + '</div></div>';
+  html += '</div>';
+  if(isAdmin) html += '<button onclick="openAddProfForm(' + d + ')" style="padding:5px 13px;font-size:12px;border:1px solid rgba(193,18,31,0.3);border-radius:7px;background:rgba(193,18,31,0.06);color:#c1121f;cursor:pointer;font-family:inherit;font-weight:600;">+ Add Faculty</button>';
+  html += '</div>';
+  html += '<div class="prof-cards-grid">';
+  for(var p=0;p<dept.profs.length;p++){
+   var pr = dept.profs[p];
+   html += '<div class="prof-card" style="position:relative;">';
+   if(isAdmin){
+    html += '<div style="position:absolute;top:10px;right:10px;display:flex;gap:5px;">';
+    html += '<button onclick="openEditProfForm(' + d + ',' + p + ')" style="padding:3px 9px;font-size:11px;border:1px solid rgba(0,0,0,0.15);border-radius:5px;background:#fff;cursor:pointer;font-family:inherit;">Edit</button>';
+    html += '<button onclick="deleteProf(' + d + ',' + p + ')" style="padding:3px 9px;font-size:11px;border:1px solid rgba(193,18,31,0.3);border-radius:5px;background:rgba(193,18,31,0.06);color:#c1121f;cursor:pointer;font-family:inherit;">Del</button>';
+    html += '</div>';
+   }
+   html += '<div class="prof-card-top">';
+   html += '<div class="prof-avatar">' + initials(pr.name) + '</div>';
+   html += '<div><div class="prof-name">' + pr.name + '</div>';
+   html += '<div class="prof-title">' + pr.title + '</div></div>';
+   html += '</div>';
+   html += '<div class="prof-subjects">' + pr.subjects + '</div>';
+   html += '<a class="class-link" href="' + pr.meet + '" target="_blank">Join Online Class</a>';
+   html += '<div class="class-time">' + pr.schedule + '</div>';
+   html += '</div>';
+  }
+  html += '</div></div>';
+ }
+ el.innerHTML = html;
+}
+
+function openAddProfForm(deptIdx) {
+ document.getElementById('profFormTitle').textContent = 'Add Faculty Member';
+ document.getElementById('pfDept').value = deptIdx;
+ document.getElementById('pfProfIdx').value = -1;
+ document.getElementById('pfName').value = '';
+ document.getElementById('pfTitle').value = '';
+ document.getElementById('pfSubjects').value = '';
+ document.getElementById('pfMeet').value = '';
+ document.getElementById('pfSchedule').value = '';
+ document.getElementById('profFormError').style.display = 'none';
+ document.getElementById('profFormModal').classList.add('open');
+}
+function openEditProfForm(deptIdx, profIdx) {
+ var pr = DEPARTMENTS[deptIdx].profs[profIdx];
+ document.getElementById('profFormTitle').textContent = 'Edit Faculty Member';
+ document.getElementById('pfDept').value = deptIdx;
+ document.getElementById('pfProfIdx').value = profIdx;
+ document.getElementById('pfName').value = pr.name;
+ document.getElementById('pfTitle').value = pr.title;
+ document.getElementById('pfSubjects').value = pr.subjects;
+ document.getElementById('pfMeet').value = pr.meet;
+ document.getElementById('pfSchedule').value = pr.schedule;
+ document.getElementById('profFormError').style.display = 'none';
+ document.getElementById('profFormModal').classList.add('open');
+}
+function saveProfForm() {
+ var deptIdx = parseInt(document.getElementById('pfDept').value);
+ var profIdx = parseInt(document.getElementById('pfProfIdx').value);
+ var name = document.getElementById('pfName').value.trim();
+ var title = document.getElementById('pfTitle').value.trim();
+ var subjects = document.getElementById('pfSubjects').value.trim();
+ var meet = document.getElementById('pfMeet').value.trim();
+ var schedule = document.getElementById('pfSchedule').value.trim();
+ var err = document.getElementById('profFormError');
+ if(!name || !title) { err.textContent = 'Name and title are required.'; err.style.display='block'; return; }
+ var entry = { name:name, title:title, subjects:subjects, meet:meet||'#', schedule:schedule };
+ if(profIdx === -1) {
+  DEPARTMENTS[deptIdx].profs.push(entry);
+ } else {
+  DEPARTMENTS[deptIdx].profs[profIdx] = entry;
+ }
+ document.getElementById('profFormModal').classList.remove('open');
+ renderDepartments();
+}
+function deleteProf(deptIdx, profIdx) {
+ var name = DEPARTMENTS[deptIdx].profs[profIdx].name;
+ if(!confirm('Remove ' + name + ' from this department?')) return;
+ DEPARTMENTS[deptIdx].profs.splice(profIdx, 1);
+ renderDepartments();
 }
 
 /* 
@@ -2828,14 +2900,65 @@ function toggleLike(id, btn) {
  btn.classList.toggle('liked', post.liked);
 }
 
-function postForum() {
- const ta = document.querySelector('.forum-compose textarea');
- if(!ta || !ta.value.trim()) return;
- const user = currentUser || { display: 'Guest', avatar: null };
- FORUM_POSTS.unshift({ id: Date.now(), author: user.display, avatar: initials(user.display), color: '#c1121f', time: 'Just now', content: ta.value, likes: 0, liked: false, comments: 0, attachments: [] });
+var forumPendingAttachments = [];
+
+function handleForumAttach(input, type) {
+ var files = Array.from(input.files);
+ files.forEach(function(file) {
+  forumPendingAttachments.push({ name: file.name, type: type, url: URL.createObjectURL(file) });
+ });
+ renderAttachPreview();
+ input.value = '';
+}
+
+function addForumLink() {
+ var url = prompt('Enter a URL to attach:');
+ if(!url || !url.trim()) return;
+ var label = url.replace(/^https?:\/\//, '').slice(0, 40);
+ forumPendingAttachments.push({ name: label, type: 'link', url: url });
+ renderAttachPreview();
+}
+
+function renderAttachPreview() {
+ var preview = document.getElementById('forumAttachPreview');
+ if(!preview) return;
+ if(forumPendingAttachments.length === 0) { preview.innerHTML = ''; return; }
+ preview.innerHTML = forumPendingAttachments.map(function(a, i) {
+  var icon = a.type === 'photo' ? '&#128247;' : a.type === 'link' ? '&#128279;' : '&#128196;';
+  return '<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:rgba(29,78,216,0.08);border:1px solid rgba(29,78,216,0.2);border-radius:20px;font-size:12px;color:#1d4ed8;">'
+   + icon + ' ' + a.name
+   + ' <span onclick="removeAttach(' + i + ')" style="cursor:pointer;color:#9ca3af;font-weight:700;margin-left:2px;">x</span>'
+   + '</span>';
+ }).join('');
+}
+
+function removeAttach(i) {
+ forumPendingAttachments.splice(i, 1);
+ renderAttachPreview();
+}
+
+function submitForumPost() {
+ var ta = document.getElementById('forumCompose');
+ if(!ta || (!ta.value.trim() && forumPendingAttachments.length === 0)) return;
+ var user = currentUser || { display:'Guest', avatar:null };
+ var attachNames = forumPendingAttachments.map(function(a){ return a.name; });
+ FORUM_POSTS.unshift({
+  id: Date.now(),
+  author: user.display,
+  avatar: initials(user.display),
+  color: '#c1121f',
+  time: 'Just now',
+  content: ta.value.trim(),
+  likes: 0, liked: false, comments: 0,
+  attachments: attachNames
+ });
  ta.value = '';
+ forumPendingAttachments = [];
+ renderAttachPreview();
  renderForum();
 }
+
+function postForum() { submitForumPost(); }
 
 /* 
  EVENTS
@@ -3199,6 +3322,11 @@ function toggleSetting(btn) {
  DOCUMENTS PAGE (role-aware)
  */
 const LEARNING_MATERIALS = [];
+const DOC_REQUESTS = [
+ { id:1, student:'Juan Dela Cruz', studentId:'2021-00001', course:'B.S. Information Technology', docType:'Transcript of Records (TOR)', purpose:'Scholarship Application', copies:1, status:'Processing', submitted:'Feb 21, 2026', updated:'Feb 23, 2026' },
+ { id:2, student:'Maria Santos', studentId:'2022-00456', course:'B.S. Information Technology', docType:'Certificate of Enrollment', purpose:'Employment', copies:2, status:'Ready', submitted:'Feb 24, 2026', updated:'Feb 26, 2026' },
+ { id:3, student:'Ana Lim', studentId:'2023-00101', course:'B.S. Nursing', docType:'Good Moral Certificate', purpose:'Transfer', copies:1, status:'Pending', submitted:'Mar 1, 2026', updated:'Mar 1, 2026' },
+];
 
 function renderDocumentsPage(role) {
  const el = document.getElementById('docsPageContent');
@@ -3275,57 +3403,89 @@ function renderDocumentsPage(role) {
  <div style="font-size:14px;font-weight:800;color:#1a1a2e;margin-bottom:12px;"> Uploaded Materials <span style="font-size:12px;color:#9ca3af;font-weight:400;" id="matCount">(${LEARNING_MATERIALS.length} files)</span></div>
  <div id="materialsList">${renderMaterialsList()}</div>
  `;
+  } else if (role === 'Administrator' || role === 'Registrar') {
+ renderAdminDocRequests(container);
  } else {
- // Student/Admin/Registrar view
- container.innerHTML = `
- <div class="page-header">
- <h1> Documents & Requests</h1>
- <p>Request official documents — track your order status</p>
- </div>
- <div class="search-bar">
- <button class="btn-action primary" onclick="showRequestDocModal()">+ New Document Request</button>
- </div>
- <div>
- <div class="doc-card">
- <div class="doc-icon"></div>
- <div class="doc-info">
- <div class="doc-name">Transcript of Records (TOR)</div>
- <div class="doc-status">Standard — Processing within 3–5 business days</div>
- <div class="doc-track"> Processing — Submitted Feb 21, 2026</div>
- </div>
- <button class="btn-request" onclick="alert('Your TOR request is being processed by the Registrar\\'s Office.')">Track →</button>
- </div>
- <div class="doc-card">
- <div class="doc-icon"></div>
- <div class="doc-info">
- <div class="doc-name">Certificate of Enrollment</div>
- <div class="doc-status">Standard — 1–2 business days</div>
- <div class="doc-track" style="color:var(--success);"> Ready for pickup — Feb 26, 2026</div>
- </div>
- <button class="btn-request" onclick="alert('Your document is ready! Please proceed to the Registrar\\'s Office.')">Pickup Info →</button>
- </div>
- <div class="doc-card">
- <div class="doc-icon"></div>
- <div class="doc-info">
- <div class="doc-name">Good Moral Certificate</div>
- <div class="doc-status">Standard — 1–2 business days · Delivery available</div>
- </div>
- <button class="btn-request" onclick="showRequestDocModal()">Request →</button>
- </div>
- <div class="doc-card">
- <div class="doc-icon"></div>
- <div class="doc-info">
- <div class="doc-name">Diploma / Certified True Copy</div>
- <div class="doc-status">Must be requested in person · 5–7 business days</div>
- </div>
- <button class="btn-request" onclick="showRequestDocModal()">Request →</button>
- </div>
- </div>
- `;
+ renderStudentDocView(container);
  }
 }
 
-function renderMaterialsList() {
+function renderAdminDocRequests(container) {
+ var statusColors = { Pending:'#92400e', Processing:'#1d4ed8', Ready:'#166534', Released:'#6b7280', Rejected:'#991b1b' };
+ var html = '<div class="page-header"><h1>Document Requests</h1><p>All student document requests — manage and update status</p></div>';
+ html += '<div style="background:rgba(255,255,255,0.85);border:1px solid rgba(0,0,0,0.09);border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,0.05);overflow:hidden;">';
+ html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(0,0,0,0.07);">';
+ html += '<span style="font-size:13px;font-weight:700;color:#1a1a2e;">All Requests</span>';
+ html += '<span style="font-size:12px;color:#6b7280;">' + DOC_REQUESTS.length + ' total</span></div>';
+ html += '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
+ html += '<thead><tr style="background:rgba(0,0,0,0.03);">';
+ html += '<th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;">STUDENT</th>';
+ html += '<th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;">DOCUMENT</th>';
+ html += '<th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;">PURPOSE</th>';
+ html += '<th style="padding:10px 16px;text-align:center;font-size:11px;font-weight:700;color:#6b7280;">COPIES</th>';
+ html += '<th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;">SUBMITTED</th>';
+ html += '<th style="padding:10px 16px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;">STATUS</th>';
+ html += '<th style="padding:10px 16px;text-align:right;font-size:11px;font-weight:700;color:#6b7280;">ACTION</th>';
+ html += '</tr></thead><tbody>';
+ if(DOC_REQUESTS.length === 0) {
+  html += '<tr><td colspan="7" style="padding:32px;text-align:center;color:#9ca3af;">No document requests yet.</td></tr>';
+ }
+ for(var i=0;i<DOC_REQUESTS.length;i++){
+  var r = DOC_REQUESTS[i];
+  var sc = statusColors[r.status] || '#6b7280';
+  html += '<tr style="border-top:1px solid rgba(0,0,0,0.05);">';
+  html += '<td style="padding:12px 16px;"><div style="font-weight:700;color:#1a1a2e;">' + r.student + '</div>';
+  html += '<div style="font-size:11px;color:#6b7280;">' + r.studentId + ' &middot; ' + r.course + '</div></td>';
+  html += '<td style="padding:12px 16px;font-weight:600;">' + r.docType + '</td>';
+  html += '<td style="padding:12px 16px;color:#6b7280;">' + r.purpose + '</td>';
+  html += '<td style="padding:12px 16px;text-align:center;">' + r.copies + '</td>';
+  html += '<td style="padding:12px 16px;color:#6b7280;font-size:12px;">' + r.submitted + '</td>';
+  html += '<td style="padding:12px 16px;"><select onchange="updateDocStatus(' + i + ',this.value)" style="padding:5px 8px;border:1px solid ' + sc + '55;border-radius:6px;background:' + sc + '18;color:' + sc + ';font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">';
+  var statuses = ['Pending','Processing','Ready','Released','Rejected'];
+  for(var s=0;s<statuses.length;s++){
+   html += '<option value="' + statuses[s] + '"' + (r.status===statuses[s]?' selected':'') + '>' + statuses[s] + '</option>';
+  }
+  html += '</select></td>';
+  html += '<td style="padding:12px 16px;text-align:right;"><button onclick="deleteDocRequest(' + i + ')" style="padding:4px 10px;font-size:12px;border:1px solid rgba(193,18,31,0.3);border-radius:6px;background:rgba(193,18,31,0.06);color:#c1121f;cursor:pointer;font-family:inherit;">Remove</button></td>';
+  html += '</tr>';
+ }
+ html += '</tbody></table></div>';
+ if(container) container.innerHTML = html;
+}
+
+function updateDocStatus(idx, newStatus) {
+ DOC_REQUESTS[idx].status = newStatus;
+}
+
+function deleteDocRequest(idx) {
+ var r = DOC_REQUESTS[idx];
+ if(!confirm('Remove request from ' + r.student + ' for ' + r.docType + '?')) return;
+ DOC_REQUESTS.splice(idx,1);
+ renderDocumentsPage(currentUser.role);
+}
+
+function renderStudentDocView(container) {
+ var docItems = [
+  { name:'Transcript of Records (TOR)', status:'Processing within 3-5 business days', track:'Processing - Submitted Feb 21, 2026', btn:'Track', action:'alert("Your TOR is being processed by the Registrar.")' },
+  { name:'Certificate of Enrollment', status:'1-2 business days', track:'Ready for pickup - Feb 26, 2026', trackColor:'#166534', btn:'Pickup Info', action:'alert("Your document is ready! Go to the Registrar.")' },
+  { name:'Good Moral Certificate', status:'1-2 business days - Delivery available', track:'', btn:'Request', action:'showRequestDocModal()' },
+  { name:'Diploma / Certified True Copy', status:'Must be requested in person - 5-7 business days', track:'', btn:'Request', action:'showRequestDocModal()' },
+ ];
+ var html = '<div class="page-header"><h1>Documents & Requests</h1><p>Request official documents - track your order status</p></div>';
+ html += '<div style="margin-bottom:16px;"><button class="btn-action primary" onclick="showRequestDocModal()">+ New Document Request</button></div><div>';
+ for(var i=0;i<docItems.length;i++){
+  var d = docItems[i];
+  html += '<div class="doc-card">';
+  html += '<div class="doc-info"><div class="doc-name">' + d.name + '</div>';
+  html += '<div class="doc-status">' + d.status + '</div>';
+  if(d.track) html += '<div class="doc-track"' + (d.trackColor?' style="color:'+d.trackColor+';"':'') + '>' + d.track + '</div>';
+  html += '</div>';
+  html += '<button class="btn-request" onclick="' + d.action + '">' + d.btn + '</button>';
+  html += '</div>';
+ }
+ html += '</div>';
+ container.innerHTML = html;
+}function renderMaterialsList() {
  if (!LEARNING_MATERIALS.length) {
  return `<div style="text-align:center;padding:40px;color:#9ca3af;background:rgba(255,255,255,0.7);border-radius:12px;border:1.5px dashed rgba(0,0,0,0.1);">
  <div style="font-size:36px;margin-bottom:8px;"></div>
@@ -3913,5 +4073,45 @@ function deleteUser(idx) {
  renderUserMgmtList();
 }
 </script>
+
+<!-- PROF FORM MODAL -->
+<div class="modal-overlay" id="profFormModal" onclick="if(event.target===this)this.classList.remove('open')" style="z-index:10001;">
+  <div class="modal" style="max-width:480px;width:100%;">
+    <div class="modal-header">
+      <div class="modal-title" id="profFormTitle">Add Faculty Member</div>
+      <button class="modal-close" onclick="document.getElementById('profFormModal').classList.remove('open')">x</button>
+    </div>
+    <div style="padding:20px;display:flex;flex-direction:column;gap:13px;">
+      <input type="hidden" id="pfDept">
+      <input type="hidden" id="pfProfIdx">
+      <div class="field">
+        <label>Full Name</label>
+        <input type="text" id="pfName" placeholder="e.g. Prof. Juan Dela Cruz" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;">
+      </div>
+      <div class="field">
+        <label>Title / Credentials</label>
+        <input type="text" id="pfTitle" placeholder="e.g. Faculty · MIT" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;">
+      </div>
+      <div class="field">
+        <label>Subjects (comma-separated)</label>
+        <input type="text" id="pfSubjects" placeholder="e.g. IT401, IT402, IT403" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;">
+      </div>
+      <div class="field">
+        <label>Online Class Link</label>
+        <input type="text" id="pfMeet" placeholder="https://meet.google.com/..." style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;">
+      </div>
+      <div class="field">
+        <label>Schedule</label>
+        <input type="text" id="pfSchedule" placeholder="e.g. MWF 8:00–9:00 AM" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;">
+      </div>
+      <div class="error-msg" id="profFormError">Please fill in all required fields.</div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn-action" onclick="document.getElementById('profFormModal').classList.remove('open')">Cancel</button>
+        <button class="btn-action primary" onclick="saveProfForm()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
