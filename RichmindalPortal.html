@@ -6,9 +6,11 @@
 <title>Richmindale College — Student Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=OpenDyslexic&display=swap" rel="stylesheet">
 <style>
+/* FONT OPTIONS */
 body.font-dyslexic * { font-family: 'OpenDyslexic', 'Comic Sans MS', cursive !important; letter-spacing: 0.05em; }
 body.font-large { font-size: 17px !important; }
 body.font-large * { font-size: inherit; }
+
 :root {
  --blue: #1d4ed8; --blue-light: #2563eb;
  --red: #c1121f; --red-dark: #7f0000;
@@ -19,6 +21,8 @@ body.font-large * { font-size: inherit; }
  --text: #1a1a2e; --muted: #374151;
  --sidebar-w: 250px; --topnav-h: 64px;
 }
+
+/* DARK GRAY THEME */
 body.theme-dark-gray {
  background: linear-gradient(160deg, #1a1a1f 0%, #2d1010 50%, #1a1a1f 100%) fixed !important;
  color: #e8e8f0 !important;
@@ -57,7 +61,11 @@ body.theme-dark-gray .comment-input-row input { background:rgba(255,255,255,0.08
 body.theme-dark-gray .nav-item { color:#9090a8 !important; }
 body.theme-dark-gray .nav-item:hover, body.theme-dark-gray .nav-item.active { color:#e8e8f0 !important; }
 body.theme-dark-gray * { color: inherit; }
+
+/* RESET */
 * { margin:0; padding:0; box-sizing:border-box; }
+
+/* BODY BACKGROUND */
 body {
  font-family: 'DM Sans', sans-serif;
  min-height: 100vh;
@@ -103,6 +111,8 @@ body {
  );
  background-attachment: fixed;
 }
+
+/* LOGO WATERMARK */
 body::before {
  content: '';
  position: fixed; inset: 0;
@@ -114,6 +124,7 @@ body::before {
  pointer-events: none;
  z-index: 0;
 }
+
 /* Scrollable content sits above watermark */
 body::after {
  content: '';
@@ -131,6 +142,8 @@ body::after {
  transparent 160px
  );
 }
+
+/* LOGIN */
 #loginPage {
  position: relative; z-index: 1;
  display: flex; align-items: center; justify-content: center;
@@ -148,6 +161,7 @@ body::after {
  color: var(--text);
 }
 @keyframes slideUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
 .login-logo-center {
  display: flex; flex-direction: column; align-items: center;
  gap: 12px; margin-bottom: 28px;
@@ -162,6 +176,7 @@ body::after {
 .rc-logo-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 .login-school-name { font-family: 'DM Serif Display', serif; font-size: 22px; text-align: center; color: #1a1a2e; }
 .login-school-sub { font-size: 11px; color: #c1121f; text-transform: uppercase; letter-spacing: 2px; text-align: center; font-weight: 700; }
+
 .login-tabs { display:flex; gap:0; margin-bottom:20px; background:rgba(0,0,0,0.06); border-radius:10px; padding:4px; }
 .login-tab {
  flex:1; padding:10px; border-radius:8px; border:none; background:transparent;
@@ -170,10 +185,13 @@ body::after {
 }
 .login-tab.active { background:rgba(193,18,31,0.12); color:#c1121f; box-shadow:0 2px 8px rgba(193,18,31,0.15); }
 .login-footer { text-align:center; margin-top:14px; font-size:12px; color:#9ca3af; }
+
 /* Role selector pills */
 .role-tabs { display:flex; gap:4px; margin-bottom:16px; flex-wrap:wrap; background:rgba(0,0,0,0.04); border-radius:10px; padding:4px; }
 .role-tab { flex:1; min-width:60px; padding:8px 6px; border-radius:7px; border:none; background:transparent; color:#6b7280; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; cursor:pointer; transition:all 0.2s; text-align:center; }
 .role-tab.active { background:rgba(29,78,216,0.12); color:#1d4ed8; }
+
+/* FIELDS */
 .field { margin-bottom:16px; }
 .field label { display:block; font-size:11px; font-weight:700; color:#374151; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; }
 .field label.required::after { content:' *'; color:#c1121f; }
@@ -189,12 +207,14 @@ body::after {
 .field input::placeholder { color:rgba(107,114,128,0.5); }
 .field select { cursor:pointer; color:#1a1a2e; }
 .field select option { background:#fff; color:#1a1a2e; }
+
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .hidden-file { display:none; }
 .error-msg { color:#c1121f; font-size:13px; margin-top:10px; text-align:center; display:none; background:rgba(193,18,31,0.07); border:1px solid rgba(193,18,31,0.2); border-radius:8px; padding:10px 14px; }
 @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
 .shake { animation:shake 0.35s ease; }
 @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-5px)} 40%,80%{transform:translateX(5px)} }
+
 /* Avatar Upload */
 .avatar-upload-wrap { display:flex; flex-direction:column; align-items:center; gap:8px; margin-bottom:18px; }
 .avatar-preview {
@@ -208,10 +228,12 @@ body::after {
 .avatar-preview .upload-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.45); border-radius:50%; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.2s; font-size:20px; }
 .avatar-preview:hover .upload-overlay { opacity:1; }
 .avatar-upload-label { font-size:11px; color:#6b7280; }
+
 /* Account type tabs */
 .acct-type-tabs { display:flex; gap:5px; margin-bottom:16px; flex-wrap:wrap; }
 .acct-type-btn { flex:1; min-width:80px; padding:9px 8px; border-radius:8px; border:1.5px solid rgba(0,0,0,0.12); background:rgba(255,255,255,0.7); color:#374151; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; cursor:pointer; transition:all 0.2s; text-align:center; }
 .acct-type-btn.active { background:rgba(193,18,31,0.1); border-color:#c1121f; color:#c1121f; }
+
 /* Phone */
 .phone-wrap { display:flex; }
 .phone-country-select { background:rgba(255,255,255,0.95); border:1.5px solid rgba(0,0,0,0.14); border-right:none; border-radius:10px 0 0 10px; color:#1a1a2e; font-family:'DM Sans',sans-serif; font-size:13px; padding:11px 8px; cursor:pointer; min-width:108px; }
@@ -220,14 +242,20 @@ body::after {
 .phone-number-input { flex:1; background:rgba(255,255,255,0.95); border:1.5px solid rgba(0,0,0,0.14); border-radius:0 10px 10px 0; padding:11px 13px; color:#1a1a2e; font-family:'DM Sans',sans-serif; font-size:14px; }
 .phone-number-input:focus { outline:none; border-color:#1d4ed8; box-shadow:0 0 0 3px rgba(29,78,216,0.12); }
 .phone-number-input::placeholder { color:rgba(107,114,128,0.5); }
+
 /* Dept field */
 .dept-reveal { display:none; }
 .dept-reveal.show { display:block; animation:fadeIn 0.25s ease; }
+
 /* Primary button */
 .btn-primary { width:100%; padding:13px; background:linear-gradient(135deg,#c1121f 0%,#8d0020 100%); border:none; border-radius:10px; color:#fff; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all 0.2s; box-shadow:0 4px 18px rgba(193,18,31,0.35); letter-spacing:0.2px; }
 .btn-primary:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(193,18,31,0.45); }
 .btn-primary:active { transform:translateY(0); }
+
+/* MAIN APP */
 #mainApp { display:none; position:relative; z-index:1; min-height:100vh; }
+
+/* TOPNAV */
 .topnav { height:var(--topnav-h); background:rgba(255,255,255,0.88); border-bottom:1px solid rgba(0,0,0,0.1); backdrop-filter:blur(18px); display:flex; align-items:center; justify-content:space-between; padding:0 22px; position:sticky; top:0; z-index:200; box-shadow:0 2px 14px rgba(0,0,0,0.08); }
 .topnav-left { display:flex; align-items:center; gap:12px; }
 .rc-logo-small { width:38px; height:38px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 2px rgba(193,18,31,0.3); flex-shrink:0; overflow:hidden; }
@@ -235,6 +263,7 @@ body::after {
 .topnav-brand-txt { font-family:'DM Serif Display',serif; font-size:15px; color:#1a1a2e; line-height:1.1; }
 .topnav-brand-txt small { display:block; font-family:'DM Sans',sans-serif; font-size:10px; color:#c1121f; letter-spacing:1.5px; text-transform:uppercase; font-weight:700; }
 .topnav-right { display:flex; align-items:center; gap:10px; }
+
 /* Notif bell */
 .notif-btn { position:relative; background:rgba(255,255,255,0.75); border:1px solid rgba(0,0,0,0.12); border-radius:10px; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; transition:all 0.2s; }
 .notif-btn:hover { background:#fff; }
@@ -251,6 +280,7 @@ body::after {
 .notif-item.type-balance .notif-item-title { color:#92400e; }
 .notif-item.type-event .notif-item-title { color:#1d4ed8; }
 .notif-item.type-grade .notif-item-title { color:#166534; }
+
 .user-chip { display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.75); border:1px solid rgba(0,0,0,0.12); border-radius:40px; padding:5px 13px 5px 5px; cursor:pointer; transition:all 0.2s; }
 .user-chip:hover { background:#fff; }
 .user-avatar { width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg,#c1121f,#8d0020); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; overflow:hidden; flex-shrink:0; color:#fff; }
@@ -258,6 +288,8 @@ body::after {
 .user-name { font-size:13px; font-weight:700; color:#1a1a2e; }
 .user-role { font-size:10px; color:#c1121f; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
 .last-active { font-size:10px; color:#9ca3af; }
+
+/* SIDEBAR */
 .app-layout { display:flex; }
 .sidebar { width:var(--sidebar-w); min-height:calc(100vh - var(--topnav-h)); background:rgba(255,255,255,0.82); border-right:1px solid rgba(0,0,0,0.1); padding:18px 10px; position:sticky; top:var(--topnav-h); height:calc(100vh - var(--topnav-h)); overflow-y:auto; display:flex; flex-direction:column; box-shadow:2px 0 10px rgba(0,0,0,0.06); }
 .sidebar::-webkit-scrollbar { width:3px; }
@@ -270,6 +302,8 @@ body::after {
 .nav-icon { font-size:16px; width:20px; text-align:center; flex-shrink:0; }
 .nav-badge { margin-left:auto; background:#c1121f; color:#fff; font-size:9px; font-weight:700; padding:2px 6px; border-radius:10px; }
 .sidebar-footer { margin-top:auto; padding-top:14px; border-top:1px solid rgba(0,0,0,0.1); }
+
+/* CONTENT */
 .content { flex:1; padding:30px 34px; min-width:0; }
 .page { display:none; }
 .page.active { display:block; animation:fadeIn 0.3s ease; }
@@ -277,11 +311,14 @@ body::after {
 .page-header { margin-bottom:26px; }
 .page-header h1 { font-family:'DM Serif Display',serif; font-size:28px; margin-bottom:4px; color:#1a1a2e; }
 .page-header p { color:#6b7280; font-size:14px; }
+
 /* Welcome */
 .welcome-header { margin-bottom:24px; }
 .welcome-header .welcome-text { font-family:'DM Serif Display',serif; font-size:26px; color:#1a1a2e; }
 .welcome-header .welcome-text span { color:#c1121f; }
 .welcome-header .welcome-sub { color:#6b7280; font-size:13px; margin-top:4px; }
+
+/* NOTIFICATION BAR */
 .notif-bar { background:rgba(255,255,255,0.82); border:1.5px solid rgba(193,18,31,0.25); border-radius:12px; padding:12px 18px; display:flex; align-items:center; gap:12px; margin-bottom:22px; cursor:pointer; transition:all 0.2s; box-shadow:0 2px 8px rgba(193,18,31,0.08); }
 .notif-bar:hover { background:#fff; border-color:rgba(193,18,31,0.4); }
 .notif-bar-icon { font-size:20px; }
@@ -289,6 +326,8 @@ body::after {
 .notif-bar-title { font-size:13px; font-weight:700; color:#c1121f; }
 .notif-bar-sub { font-size:12px; color:#6b7280; margin-top:2px; }
 .notif-bar-cta { font-size:12px; font-weight:700; color:#c1121f; white-space:nowrap; }
+
+/* STAT CARDS */
 .stats-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:13px; margin-bottom:24px; }
 .stat-card { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:14px; padding:17px 19px; transition:transform 0.2s, box-shadow 0.2s; box-shadow:0 2px 10px rgba(0,0,0,0.06); cursor:default; }
 .stat-card:hover { transform:translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,0.1); }
@@ -297,6 +336,8 @@ body::after {
 .stat-value { font-family:'JetBrains Mono',monospace; font-size:25px; font-weight:700; }
 .stat-icon { float:right; font-size:21px; opacity:0.5; }
 .stat-sub { font-size:12px; color:#6b7280; margin-top:4px; }
+
+/* CHARTS */
 .charts-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:24px; }
 .chart-card { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:14px; padding:19px 21px; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
 .chart-title { font-size:14px; font-weight:700; margin-bottom:15px; color:#1a1a2e; }
@@ -310,6 +351,8 @@ body::after {
 .donut-legend { display:flex; flex-direction:column; gap:8px; }
 .donut-item { display:flex; align-items:center; gap:8px; font-size:12px; color:#1a1a2e; }
 .donut-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+
+/* SECTIONS GRID */
 .sections-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; margin-bottom:24px; }
 .section-card { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:14px; padding:17px; transition:transform 0.2s; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
 .section-card:hover { transform:translateY(-1px); }
@@ -327,6 +370,8 @@ body::after {
 .status-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
 .status-dot.active { background:#166534; box-shadow:0 0 5px #166534; }
 .status-dot.inactive { background:#9ca3af; }
+
+/* SEARCH */
 .search-bar { display:flex; gap:10px; margin-bottom:18px; align-items:center; }
 .search-input-wrap { position:relative; flex:1; }
 .search-input-wrap .icon { position:absolute; left:13px; top:50%; transform:translateY(-50%); color:#9ca3af; pointer-events:none; }
@@ -337,6 +382,8 @@ body::after {
 .btn-action:hover { border-color:#1d4ed8; color:#1d4ed8; background:#fff; }
 .btn-action.primary { background:#1d4ed8; border-color:#1d4ed8; color:#fff; }
 .btn-action.primary:hover { background:#2563eb; }
+
+/* TABLE */
 .table-card { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:14px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
 .table-header { padding:14px 18px; border-bottom:1px solid rgba(0,0,0,0.08); display:flex; justify-content:space-between; align-items:center; }
 .table-header span { font-size:13px; color:#6b7280; }
@@ -356,6 +403,8 @@ tbody tr:last-child td { border-bottom:none; }
 .btn-view:hover { background:rgba(29,78,216,0.2); }
 .empty-state { text-align:center; padding:44px; color:#9ca3af; font-size:14px; }
 .empty-state .empty-icon { font-size:38px; margin-bottom:11px; }
+
+/* PAYMENTS */
 .payments-list { display:flex; flex-direction:column; gap:11px; }
 .payment-item { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:12px; padding:15px 18px; display:flex; align-items:center; gap:15px; cursor:pointer; transition:all 0.2s; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
 .payment-item:hover { border-color:rgba(29,78,216,0.3); background:#fff; }
@@ -364,6 +413,8 @@ tbody tr:last-child td { border-bottom:none; }
 .payment-name { font-size:14px; font-weight:700; color:#1a1a2e; }
 .payment-due { font-size:12px; color:#6b7280; margin-top:3px; }
 .payment-amount { font-family:'JetBrains Mono',monospace; font-size:17px; font-weight:700; color:#92400e; }
+
+/* SUBJECT CARDS */
 .subject-card { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:12px; padding:17px 19px; margin-bottom:11px; cursor:pointer; transition:all 0.2s; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
 .subject-card:hover { border-color:rgba(29,78,216,0.3); background:#fff; }
 .subject-card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
@@ -376,6 +427,8 @@ tbody tr:last-child td { border-bottom:none; }
 .prof-mini-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
 .download-icon { font-size:16px; cursor:pointer; padding:4px 8px; border-radius:6px; transition:background 0.2s; color:#6b7280; }
 .download-icon:hover { background:rgba(0,0,0,0.08); color:#1a1a2e; }
+
+/* DEPARTMENTS */
 .dept-section { margin-bottom:28px; }
 .dept-header { display:flex; align-items:center; gap:13px; margin-bottom:15px; }
 .dept-circle { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,#c1121f,#8d0020); display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 4px 10px rgba(193,18,31,0.25); flex-shrink:0; }
@@ -393,6 +446,8 @@ tbody tr:last-child td { border-bottom:none; }
 .class-link { display:flex; align-items:center; gap:8px; padding:7px 11px; border-radius:8px; background:rgba(29,78,216,0.08); border:1px solid rgba(29,78,216,0.18); font-size:12px; font-weight:700; color:#1d4ed8; cursor:pointer; transition:all 0.2s; text-decoration:none; }
 .class-link:hover { background:rgba(29,78,216,0.15); }
 .class-time { font-size:11px; color:#6b7280; margin-top:4px; }
+
+/* EVENTS */
 .event-card { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:14px; padding:19px; margin-bottom:13px; transition:transform 0.2s; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
 .event-card:hover { transform:translateY(-1px); }
 .event-card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:9px; }
@@ -419,6 +474,8 @@ tbody tr:last-child td { border-bottom:none; }
 .comment-input-row input { flex:1; background:rgba(255,255,255,0.9); border:1.5px solid rgba(0,0,0,0.12); border-radius:8px; padding:9px 13px; color:#1a1a2e; font-family:'DM Sans',sans-serif; font-size:13px; }
 .comment-input-row input:focus { outline:none; border-color:#1d4ed8; }
 .comment-input-row input::placeholder { color:#9ca3af; }
+
+/* CALENDAR */
 .calendar-card { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:14px; padding:21px; max-width:420px; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
 .cal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; }
 .cal-month { font-family:'DM Serif Display',serif; font-size:17px; color:#1a1a2e; }
@@ -434,6 +491,8 @@ tbody tr:last-child td { border-bottom:none; }
 .cal-day.selected { background:rgba(146,64,14,0.18); font-weight:700; outline:2px solid #92400e; }
 .cal-day.today.selected { background:#7f0000; }
 .cal-dot { display:none; }
+
+/* ASSIGNMENTS */
 .assignment-card { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:12px; padding:17px 19px; margin-bottom:11px; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
 .assignment-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
 .assignment-title { font-size:14px; font-weight:800; color:#1a1a2e; }
@@ -444,6 +503,8 @@ tbody tr:last-child td { border-bottom:none; }
 .attachment-btn { display:inline-flex; align-items:center; gap:6px; padding:5px 11px; border-radius:6px; background:rgba(255,255,255,0.85); border:1.5px solid rgba(0,0,0,0.12); font-size:12px; color:#374151; cursor:pointer; transition:all 0.2s; }
 .attachment-btn:hover { color:#1a1a2e; border-color:rgba(0,0,0,0.22); background:#fff; }
 .pending-badge { display:inline-flex; align-items:center; gap:4px; padding:3px 7px; border-radius:5px; background:rgba(153,27,27,0.1); border:1px solid rgba(153,27,27,0.2); color:#991b1b; font-size:11px; font-weight:700; }
+
+/* FORUM */
 .forum-post { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:12px; padding:17px 19px; margin-bottom:13px; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
 .forum-post-header { display:flex; gap:11px; align-items:flex-start; margin-bottom:10px; }
 .forum-post-body { font-size:13px; color:#374151; line-height:1.6; }
@@ -457,6 +518,8 @@ tbody tr:last-child td { border-bottom:none; }
 .forum-compose textarea::placeholder { color:#9ca3af; }
 .forum-compose-actions { display:flex; justify-content:space-between; align-items:center; margin-top:10px; }
 .forum-compose-tools { display:flex; gap:7px; }
+
+/* SETTINGS */
 .settings-section { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:14px; padding:20px; margin-bottom:16px; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
 .settings-section-title { font-size:14px; font-weight:800; margin-bottom:16px; color:#1a1a2e; }
 .setting-row { display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid rgba(0,0,0,0.07); }
@@ -473,6 +536,8 @@ tbody tr:last-child td { border-bottom:none; }
 .font-options { display:flex; gap:9px; flex-wrap:wrap; margin-top:8px; }
 .font-btn { padding:7px 13px; border-radius:8px; font-size:12px; font-weight:700; border:1.5px solid rgba(0,0,0,0.12); background:rgba(255,255,255,0.8); color:#374151; cursor:pointer; font-family:'DM Sans',sans-serif; transition:all 0.2s; }
 .font-btn.active { border-color:#92400e; color:#92400e; background:rgba(146,64,14,0.08); }
+
+/* PROFILE */
 .profile-card { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:14px; padding:26px; display:flex; gap:22px; align-items:flex-start; margin-bottom:18px; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
 .profile-avatar-wrap { display:flex; flex-direction:column; align-items:center; gap:9px; }
 .profile-avatar { width:96px; height:96px; border-radius:50%; background:linear-gradient(135deg,#c1121f,#8d0020); display:flex; align-items:center; justify-content:center; font-size:34px; font-weight:700; overflow:hidden; border:3px solid rgba(193,18,31,0.3); cursor:pointer; position:relative; color:#fff; }
@@ -487,6 +552,8 @@ tbody tr:last-child td { border-bottom:none; }
 .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
 .info-item label { font-size:11px; color:#9ca3af; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
 .info-item p { font-size:14px; margin-top:3px; color:#1a1a2e; }
+
+/* CHAT */
 .chat-layout { display:flex; gap:18px; height:calc(100vh - 200px); min-height:400px; }
 .chat-list { width:230px; background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:14px; overflow-y:auto; flex-shrink:0; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
 .chat-list-header { padding:13px 15px; border-bottom:1px solid rgba(0,0,0,0.08); font-weight:800; font-size:14px; color:#1a1a2e; }
@@ -512,6 +579,8 @@ tbody tr:last-child td { border-bottom:none; }
 .chat-status { width:9px; height:9px; border-radius:50%; border:2px solid #fff; }
 .chat-status.online { background:#166534; }
 .chat-status.offline { background:#9ca3af; }
+
+/* MODALS */
 .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); backdrop-filter:blur(6px); z-index:500; display:none; align-items:center; justify-content:center; padding:24px; }
 .modal-overlay.open { display:flex; animation:modalIn 0.22s ease; }
 @keyframes modalIn { from{opacity:0;transform:scale(0.96)} to{opacity:1;transform:scale(1)} }
@@ -524,19 +593,23 @@ tbody tr:last-child td { border-bottom:none; }
 .modal-close:hover { color:#1a1a2e; background:rgba(0,0,0,0.06); }
 .modal-body { padding:20px 24px; }
 .modal-footer { padding:15px 24px; border-top:1px solid rgba(0,0,0,0.08); display:flex; gap:10px; justify-content:flex-end; }
+
 /* Payment */
 .payment-breakdown-item { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(0,0,0,0.07); font-size:14px; color:#1a1a2e; }
 .payment-breakdown-item:last-child { border-bottom:none; }
 .payment-breakdown-total { display:flex; justify-content:space-between; padding:13px 0 0; font-size:16px; font-weight:800; color:#92400e; }
+
 /* Signout */
 .signout-icon { font-size:50px; text-align:center; margin-bottom:15px; }
 .signout-text { text-align:center; font-size:15px; color:#6b7280; margin-bottom:20px; }
 .signout-btns { display:flex; gap:11px; }
 .btn-cancel { flex:1; padding:12px; border-radius:10px; background:rgba(0,0,0,0.06); border:1.5px solid rgba(0,0,0,0.12); color:#1a1a2e; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; cursor:pointer; }
 .btn-signout { flex:1; padding:12px; border-radius:10px; background:#c1121f; border:none; color:#fff; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; cursor:pointer; }
+
 /* Latin honor */
 .latin-honor-badge { display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:20px; background:rgba(146,64,14,0.1); border:1px solid rgba(146,64,14,0.25); color:#92400e; font-size:11px; font-weight:800; }
 .subject-link { color:#1d4ed8; cursor:pointer; text-decoration:underline; font-weight:700; }
+
 /* Doc cards */
 .doc-card { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:12px; padding:15px 17px; margin-bottom:11px; display:flex; align-items:center; gap:13px; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
 .doc-icon { font-size:27px; flex-shrink:0; }
@@ -545,14 +618,17 @@ tbody tr:last-child td { border-bottom:none; }
 .doc-status { font-size:12px; color:#6b7280; margin-top:3px; }
 .doc-track { font-size:12px; color:#166534; margin-top:3px; font-weight:600; }
 .btn-request { padding:8px 15px; border-radius:8px; font-size:12px; font-weight:700; background:#1d4ed8; border:none; color:#fff; cursor:pointer; font-family:'DM Sans',sans-serif; }
+
 /* Grad form */
 .grad-form { background:rgba(255,255,255,0.85); border:1px solid rgba(0,0,0,0.09); border-radius:14px; padding:22px; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
 .form-section-title { font-size:13px; font-weight:800; margin-bottom:15px; color:#c1121f; text-transform:uppercase; letter-spacing:0.5px; }
+
 /* Portal footer */
 .portal-footer { background:rgba(255,255,255,0.82); border-top:1px solid rgba(0,0,0,0.1); padding:22px 34px; backdrop-filter:blur(12px); }
 .portal-footer-inner { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:15px; }
 .footer-info p { font-size:13px; color:#6b7280; margin-bottom:4px; }
 .footer-link { font-size:12px; color:#6b7280; cursor:pointer; text-decoration:underline; }
+
 /* Receipt */
 .receipt-card { background:#fff; color:#000; border-radius:8px; padding:30px; max-width:470px; margin:0 auto; font-family:'DM Sans',sans-serif; }
 .receipt-header { text-align:center; margin-bottom:22px; border-bottom:2px solid #000; padding-bottom:15px; }
@@ -560,6 +636,8 @@ tbody tr:last-child td { border-bottom:none; }
 .receipt-sub { font-size:12px; color:#666; }
 .receipt-line { display:flex; justify-content:space-between; padding:6px 0; font-size:13px; border-bottom:1px solid #eee; }
 .receipt-total { display:flex; justify-content:space-between; padding:11px 0 0; font-size:15px; font-weight:700; }
+
+/* GRADE ENCODING FILTER BUTTONS */
 .grade-filter-btn {
  padding: 8px 10px; border-radius: 8px; font-size: 12px; font-weight: 600;
  color: #374151; cursor: pointer; transition: all 0.15s;
@@ -567,6 +645,7 @@ tbody tr:last-child td { border-bottom:none; }
 }
 .grade-filter-btn:hover { background: rgba(193,18,31,0.06); color: #c1121f; }
 .grade-filter-btn.active { background: rgba(193,18,31,0.1); border-color: rgba(193,18,31,0.25); color: #c1121f; }
+
 @media (max-width:768px) {
  .sidebar { display:none; }
  .content { padding:18px 14px; }
@@ -579,6 +658,7 @@ tbody tr:last-child td { border-bottom:none; }
 </head>
 <body class="font-default">
 
+<!-- LOGIN PAGE -->
 <div id="loginPage">
  <div class="login-box">
  <div class="login-logo-center">
@@ -617,10 +697,10 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
  <button class="btn-primary" id="loginBtn" onclick="doLogin()">Sign In →</button>
- <div class="error-msg" id="errorMsg"> Incorrect username or password. Please check your credentials and try again.</div>
- <div class="login-footer">Credentials: &nbsp; perezanngloghienette / prof123 &nbsp;|&nbsp; student1 / student123</div>
+ <div class="error-msg" id="errorMsg"> Invalid credentials. Please try again.</div>
+
  <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(0,0,0,0.08);text-align:center;">
-   <button onclick="showAdminLogin()" style="background:linear-gradient(135deg,#1a0f00,#3d2800);color:#d4a017;border:1.5px solid #92400e;border-radius:8px;padding:9px 22px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.03em;width:100%;transition:all 0.2s;" onmouseover="this.style.background='linear-gradient(135deg,#3d2800,#6b4e0a)'" onmouseout="this.style.background='linear-gradient(135deg,#1a0f00,#3d2800)'">Login as Admin</button>
+  <button onclick="showAdminLogin()" style="background:linear-gradient(135deg,#1a0f00,#3d2800);color:#d4a017;border:1.5px solid #92400e;border-radius:8px;padding:9px 22px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;width:100%;">Login as Admin</button>
  </div>
  </div>
 
@@ -793,7 +873,7 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
 </div>
-
+<!-- MAIN APP -->
 <div id="mainApp">
  <!-- TOP NAV -->
  <nav class="topnav">
@@ -890,7 +970,7 @@ tbody tr:last-child td { border-bottom:none; }
  <span class="nav-icon"></span> Documents
  </div>
  <div class="nav-item" onclick="navigate('graduation')" id="nav-graduation">
- <span class="nav-icon" id="gradNavIcon"></span><span id="gradNavLabel">Graduation Request</span>
+ <span class="nav-icon" id="gradNavIcon"></span> <span id="gradNavLabel">Graduation Request</span>
  </div>
 
  <div class="sidebar-footer">
@@ -912,9 +992,10 @@ tbody tr:last-child td { border-bottom:none; }
  <!-- CONTENT -->
  <main class="content">
 
+ <!-- DASHBOARD PAGE -->
  <div class="page active" id="page-dashboard">
  <div class="welcome-header">
- <div class="welcome-text">Welcome back, <span id="welcomeUsername">Admin</span></div>
+ <div class="welcome-text">Welcome back, <span id="welcomeUsername">Admin</span> </div>
  <div class="welcome-sub" id="welcomeSub">Administrator · Richmindale College Student Portal · <span id="currentDate"></span></div>
  </div>
 
@@ -963,7 +1044,44 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
  </div>
-
+ <div class="chart-card">
+ <div class="chart-title"> Balance Status Overview</div>
+ <div class="donut-wrap">
+ <svg class="donut-svg" width="110" height="110" viewBox="0 0 110 110">
+ <circle cx="55" cy="55" r="40" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="18"/>
+ <circle cx="55" cy="55" r="40" fill="none" stroke="#10b981" stroke-width="18" stroke-dasharray="163 88" stroke-dashoffset="0" stroke-linecap="round"/>
+ <circle cx="55" cy="55" r="40" fill="none" stroke="#f59e0b" stroke-width="18" stroke-dasharray="60 191" stroke-dashoffset="-163" stroke-linecap="round"/>
+ <circle cx="55" cy="55" r="40" fill="none" stroke="#ef4444" stroke-width="18" stroke-dasharray="28 223" stroke-dashoffset="-223" stroke-linecap="round"/>
+ <text x="55" y="52" text-anchor="middle" fill="white" font-size="13" font-weight="700">1,248</text>
+ <text x="55" y="66" text-anchor="middle" fill="#94a3b8" font-size="9">students</text>
+ </svg>
+ <div class="donut-legend">
+ <div class="donut-item"><div class="donut-dot" style="background:#10b981"></div>Fully Paid — 65%</div>
+ <div class="donut-item"><div class="donut-dot" style="background:#f59e0b"></div>Partial — 24%</div>
+ <div class="donut-item"><div class="donut-dot" style="background:#ef4444"></div>Unpaid — 11%</div>
+ </div>
+ </div>
+ </div>
+ <div class="chart-card">
+ <div class="chart-title"> Enrollment Per Term</div>
+ <div class="chart-bar-list">
+ <div class="chart-bar-row">
+ <div class="chart-bar-label">1st Sem 25</div>
+ <div class="chart-bar-track"><div class="chart-bar-fill" style="width:90%;background:var(--blue-light)"></div></div>
+ <div class="chart-bar-val">1,180</div>
+ </div>
+ <div class="chart-bar-row">
+ <div class="chart-bar-label">2nd Sem 25</div>
+ <div class="chart-bar-track"><div class="chart-bar-fill" style="width:95%;background:var(--success)"></div></div>
+ <div class="chart-bar-val">1,248</div>
+ </div>
+ <div class="chart-bar-row">
+ <div class="chart-bar-label">Summer 25</div>
+ <div class="chart-bar-track"><div class="chart-bar-fill" style="width:30%;background:var(--gold)"></div></div>
+ <div class="chart-bar-val">392</div>
+ </div>
+ </div>
+ </div>
  <div class="chart-card">
  <div class="chart-title"> Latin Honors Candidates</div>
  <div class="chart-bar-list">
@@ -990,10 +1108,11 @@ tbody tr:last-child td { border-bottom:none; }
  <div id="sectionsContainer"></div>
  </div>
 
+ <!-- STUDENTS PAGE -->
  <div class="page" id="page-students">
  <div class="page-header">
  <h1> Students</h1>
- <p id="studentsPageSubtitle">Manage all enrolled students, view profiles, grades, and statuses</p>
+ <p>Manage all enrolled students, view profiles, grades, and statuses</p>
  </div>
  <div class="search-bar">
  <div class="search-input-wrap">
@@ -1030,6 +1149,7 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
 
+ <!-- ACADEMIC REPORTS -->
  <div class="page" id="page-academic">
  <div class="page-header">
  <h1> Academic Reports</h1>
@@ -1042,14 +1162,15 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
  <div style="display:flex;flex-direction:column;gap:20px;" id="academicCardsContainer">
-
+ <!-- Filled by JS -->
  </div>
  </div>
 
+ <!-- SUBJECTS PAGE -->
  <div class="page" id="page-subjects">
  <div class="page-header">
  <h1> Courses</h1>
- <p>Subjects, prerequisites, and assigned professors</p>
+ <p>Course catalog with descriptions, prerequisites, and assigned professors</p>
  </div>
  <div class="search-bar">
  <div class="search-input-wrap">
@@ -1060,14 +1181,19 @@ tbody tr:last-child td { border-bottom:none; }
  <div id="subjectsList"></div>
  </div>
 
+ <!-- DEPARTMENTS -->
  <div class="page" id="page-departments">
  <div class="page-header">
  <h1> Departments</h1>
- <p>Faculty, schedules, and online class links</p>
+ <p>Faculty directory, class schedules, and online class links</p>
  </div>
  <div id="departmentsList"></div>
  </div>
 
+ <!-- ASSIGNMENTS -->
+ 
+
+ <!-- NOTES -->
  <div class="page" id="page-notes">
  <div class="page-header">
  <h1> My Notes</h1>
@@ -1090,6 +1216,7 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
 
+ <!-- FORUM -->
  <div class="page" id="page-forum">
  <div class="page-header">
  <h1> Student Forum</h1>
@@ -1114,6 +1241,7 @@ tbody tr:last-child td { border-bottom:none; }
  <div id="forumList"></div>
  </div>
 
+ <!-- CHATS -->
  <div class="page" id="page-chats">
  <div class="page-header">
  <h1> Chats</h1>
@@ -1158,7 +1286,7 @@ tbody tr:last-child td { border-bottom:none; }
  <div class="mini-avatar" style="background:linear-gradient(135deg,#3b82f6,#93c5fd);">PD</div>
  <div>
  <div style="font-weight:600;font-size:14px;">Prof. Dela Cruz</div>
- <div style="font-size:12px;color:var(--success);"> Online now</div>
+ <div style="font-size:12px;color:var(--success);">🟢 Online now</div>
  </div>
  </div>
  <div class="chat-messages">
@@ -1183,6 +1311,7 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
 
+ <!-- EVENTS -->
  <div class="page" id="page-events">
  <div class="page-header">
  <h1> Events</h1>
@@ -1191,11 +1320,12 @@ tbody tr:last-child td { border-bottom:none; }
  <div id="eventsList"></div>
  </div>
 
+ <!-- CALENDAR -->
  <div class="page" id="page-calendar">
  <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;">
  <div>
  <h1> Calendar</h1>
- <p>School calendar and personal events</p>
+ <p>Academic calendar &amp; personal events</p>
  </div>
  <button class="btn-action primary" onclick="openAddEventModal()" style="margin-top:4px;"> Add Event</button>
  </div>
@@ -1252,20 +1382,24 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
 
+ <!-- PAYMENTS PAGE -->
  <div class="page" id="page-payments">
- <div id="paymentsPageContent"></div>
+ <div id="paymentsPageContent"><!-- rendered by renderPaymentsPage() --></div>
  </div>
 
+ <!-- DOCUMENTS -->
  <div class="page" id="page-documents">
  <div id="docsPageContent">
-
+ <!-- Rendered by renderDocumentsPage() on login -->
  </div>
  </div>
 
+ <!-- GRADE ENCODING / GRADUATION -->
  <div class="page" id="page-graduation">
- <div id="gradePageContent"></div>
+ <div id="gradePageContent"><!-- rendered by renderGradePage() --></div>
  </div>
 
+ <!-- SETTINGS -->
  <div class="page" id="page-settings">
  <div class="page-header">
  <h1> Settings</h1>
@@ -1322,6 +1456,7 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
 
+ <!-- PREFERENCES -->
  <div class="page" id="page-preferences">
  <div class="page-header">
  <h1> Preferences</h1>
@@ -1368,6 +1503,7 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
 
+ <!-- PROFILE PAGE -->
  <div class="page" id="page-profile">
  <div class="page-header">
  <h1> My Profile</h1>
@@ -1417,8 +1553,8 @@ tbody tr:last-child td { border-bottom:none; }
  <div class="footer-info">
  <div style="font-family:'DM Serif Display',serif;font-size:16px;margin-bottom:6px;">Richmindale College</div>
  <p> 123 Richmindale Ave., City Center, Metro Manila, Philippines 1000</p>
- <p> (02) 8-XXX-XXXX · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e081848d898ea0928983888d898e84818c85ce858495ce9088">[email&#160;protected]</a></p>
- <p><span style="color:var(--blue-light);cursor:pointer;" onclick="alert('Redirecting to online campus portal...')">campus.richmindale.edu.ph</span></p>
+ <p> (02) 8-XXX-XXXX · admin@richmindale.edu.ph</p>
+ <p> <span style="color:var(--blue-light);cursor:pointer;" onclick="alert('Redirecting to online campus portal...')">campus.richmindale.edu.ph</span></p>
  </div>
  <div>
  <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Quick Links</div>
@@ -1432,6 +1568,8 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </footer>
 </div>
+
+<!-- MODALS -->
 
 <!-- Student Detail Modal -->
 <div class="modal-overlay" id="studentModal" onclick="closeModal('studentModal')">
@@ -1610,18 +1748,20 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
 </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 
+/* 
+ DATA
+ */
 const USERS = [
  { username:'admin', password:'admin123', role:'Administrator', display:'System Admin', avatar:null, subjects:[] },
+ { username:'admin.amirah', password:'mira123', role:'Administrator', display:'Admin Amirah', avatar:null, subjects:[] },
  { username:'perezanngloghienette', password:'prof123', role:'Professor', display:'Prof. Ann Gloghienette Perez', avatar:null, subjects:['IT401','IT402','IT403','IT404','IT201','IT202'] },
  { username:'tanghian.rhonajoy', password:'prof123', role:'Professor', display:'Prof. Rhona Joy Tanghian', avatar:null, subjects:['IT301','IT203','CS101','CS102','CS103'] },
  { username:'martinezleslie', password:'prof123', role:'Professor', display:'Prof. Leslie Martinez', avatar:null, subjects:['AC401','AC402','AC403','AC404'] },
  { username:'parrillajonahmae', password:'prof123', role:'Professor', display:'Prof. Jonah Mae Parrilla', avatar:null, subjects:['NU101','NU102','NU103'] },
  { username:'edgar.ramirez', password:'prof123', role:'Professor', display:'Prof. Edgar Ramirez', avatar:null, subjects:['CE301','CE302','CE303','CE304'] },
  { username:'flores.sherylmay', password:'prof123', role:'Professor', display:'Prof. Sheryl May Flores', avatar:null, subjects:['GE101','GE102','GE103','GE104','PE001','PE004'] },
- { username:'magtibay.daphne', password:'prof123', role:'Professor', display:'Prof. Daphne Magtibay', avatar:null, subjects:['CS103','CS102','CS101'] },
- { username:'gamaoariel', password:'prof123', role:'Professor', display:'Prof. Ariel Gamao', avatar:null, subjects:['AC401','AC402'] },
  { username:'student1', password:'student123', role:'Student', display:'Juan Dela Cruz', avatar:null, subjects:[] },
  { username:'registrar', password:'reg123', role:'Registrar', display:'Registrar Office', avatar:null, subjects:[] },
 ];
@@ -1645,27 +1785,27 @@ const STUDENTS = [
 ];
 
 const SUBJECTS = [
- {code:'IT401',title:'Capstone Project I',units:3,desc:'A culminating research and development project requiring students to design and implement an IT solution addressing a real-world problem.',prereq:'IT301',prereqDesc:'Web Development — prerequisite for advanced project work.',prof:'Prof. Ann Gloghienette Perez',profTitle:'Lead Faculty'},
- {code:'IT301',title:'Web Development',units:3,desc:'Covers modern front-end and back-end web technologies including HTML5, CSS3, JavaScript, React, and Node.js with RESTful API development.',prereq:'IT201',prereqDesc:'Programming I — foundational programming required.',prof:'Prof. Rhona Joy Tanghian',profTitle:'Faculty'},
- {code:'IT203',title:'System Analysis & Design',units:3,desc:'Methods and tools for analyzing, designing, and implementing information systems. Covers UML, use cases, and object-oriented design.',prereq:'IT101',prereqDesc:'Introduction to IT — basic IT concepts required.',prof:'Prof. Rhona Joy Tanghian',profTitle:'Faculty'},
- {code:'AC401',title:'Auditing Theory & Practice',units:3,desc:'Principles and standards of auditing, including internal and external auditing procedures, audit reports, and professional ethics.',prereq:'AC301',prereqDesc:'Financial Accounting III — advanced accounting required.',prof:'Prof. Leslie Martinez',profTitle:'CPA, Faculty'},
+ {code:'IT401',title:'Capstone Project I',units:3,desc:'A culminating research and development project requiring students to design and implement an IT solution addressing a real-world problem.',prereq:'IT301',prereqDesc:'Web Development — prerequisite for advanced project work.',prof:'Prof. Jose Dela Cruz',profTitle:'Lead Faculty'},
+ {code:'IT301',title:'Web Development',units:3,desc:'Covers modern front-end and back-end web technologies including HTML5, CSS3, JavaScript, React, and Node.js with RESTful API development.',prereq:'IT201',prereqDesc:'Programming I — foundational programming required.',prof:'Prof. Ana Reyes',profTitle:'Faculty'},
+ {code:'IT203',title:'System Analysis & Design',units:3,desc:'Methods and tools for analyzing, designing, and implementing information systems. Covers UML, use cases, and object-oriented design.',prereq:'IT101',prereqDesc:'Introduction to IT — basic IT concepts required.',prof:'Prof. Ana Reyes',profTitle:'Faculty'},
+ {code:'AC401',title:'Auditing Theory & Practice',units:3,desc:'Principles and standards of auditing, including internal and external auditing procedures, audit reports, and professional ethics.',prereq:'AC301',prereqDesc:'Financial Accounting III — advanced accounting required.',prof:'Prof. Carlos Mendoza',profTitle:'CPA, Faculty'},
  {code:'NU101',title:'Anatomy & Physiology',units:4,desc:'Comprehensive study of the human body systems. Covers structure and function of cells, tissues, organs, and organ systems.',prereq:null,prereqDesc:null,prof:'Prof. Maria Santos',profTitle:'RN, Faculty'},
  {code:'GE101',title:'Ethics',units:3,desc:'Introduction to moral philosophy and ethical theories. Applies ethical reasoning to contemporary personal, professional, and social issues.',prereq:null,prereqDesc:null,prof:'Prof. Luis Garcia',profTitle:'General Education Faculty'},
 ];
 
 const DEPARTMENTS = [
  { name:'College of Information Technology', icon:'', profs:[
- {name:'Prof. Ann Gloghienette Perez',title:'Lead Faculty · MIT',subjects:'IT401, IT301, IT202',meet:'https://meet.google.com/abc',schedule:'MWF 8:00–9:00 AM'},
- {name:'Prof. Rhona Joy Tanghian',title:'Faculty · MS-CS',subjects:'IT301, IT203',meet:'https://meet.google.com/def',schedule:'TTH 1:00–2:30 PM'},
+ {name:'Prof. Jose Dela Cruz',title:'Lead Faculty · MIT',subjects:'IT401, IT301, IT202',meet:'https://meet.google.com/abc',schedule:'MWF 8:00–9:00 AM'},
+ {name:'Prof. Ana Reyes',title:'Faculty · MS-CS',subjects:'IT301, IT203',meet:'https://meet.google.com/def',schedule:'TTH 1:00–2:30 PM'},
  ]},
  { name:'College of Business & Accountancy', icon:'', profs:[
- {name:'Prof. Leslie Martinez',title:'Faculty · CPA, MBA',subjects:'AC401, AC402, AC403',meet:'https://zoom.us/j/123456',schedule:'MWF 10:00–11:30 AM'},
+ {name:'Prof. Carlos Mendoza',title:'Faculty · CPA, MBA',subjects:'AC401, AC402, AC403',meet:'https://zoom.us/j/123456',schedule:'MWF 10:00–11:30 AM'},
  ]},
  { name:'College of Nursing', icon:'', profs:[
- {name:'Prof. Jonah Mae Parrilla',title:'Dean · RN, MAN',subjects:'NU101, NU102, NU103',meet:'https://meet.google.com/ghi',schedule:'TTH 7:00–10:00 AM'},
+ {name:'Prof. Maria Belen Santos',title:'Dean · RN, MAN',subjects:'NU101, NU102, NU103',meet:'https://meet.google.com/ghi',schedule:'TTH 7:00–10:00 AM'},
  ]},
  { name:'College of Engineering', icon:'', profs:[
- {name:'Prof. Edgar Ramirez',title:'Faculty · CE, MS-CE',subjects:'CE301, CE302, CE303',meet:'https://meet.google.com/jkl',schedule:'MWF 1:00–3:00 PM'},
+ {name:'Prof. Roberto Cruz',title:'Faculty · CE, MS-CE',subjects:'CE301, CE302, CE303',meet:'https://meet.google.com/jkl',schedule:'MWF 1:00–3:00 PM'},
  ]},
 ];
 
@@ -1678,20 +1818,23 @@ const EVENTS = [
 const FORUM_POSTS = [
  { id:1, author:'Juan Dela Cruz', avatar:'JD', color:'#3b82f6', time:'2 hours ago', content:'@Prof. Dela Cruz — Can we clarify the requirements for the Capstone Project? Specifically about the documentation format. Is IEEE or APA preferred?', likes:8, liked:false, comments:2, attachments:[] },
  { id:2, author:'Maria Santos', avatar:'MS', color:'#8b5cf6', time:'5 hours ago', content:'Sharing my notes on System Analysis (IT203) — covers the UML diagrams and use cases from Chapter 5. Hope this helps everyone! ', likes:22, liked:true, comments:5, attachments:['IT203_Notes_Ch5.pdf'] },
- { id:3, author:'Prof. Ann Gloghienette Perez', avatar:'PD', color:'#10b981', time:'Yesterday', content:' ANNOUNCEMENT: IT401 Capstone presentation schedules have been posted on the department board. Groups must be ready by March 15.', likes:31, liked:false, comments:7, attachments:['Capstone_Requirements_2026.pdf'] },
+ { id:3, author:'Prof. Jose Dela Cruz', avatar:'PD', color:'#10b981', time:'Yesterday', content:' ANNOUNCEMENT: IT401 Capstone presentation schedules have been posted on the department board. Groups must be ready by March 15.', likes:31, liked:false, comments:7, attachments:['Capstone_Requirements_2026.pdf'] },
 ];
 
 const ASSIGNMENTS = [
- { id:1, subject:'IT401 — Capstone Project I', title:'Progress Report #2', desc:'Submit your second progress report covering sprints 3–4. Include system architecture diagrams, updated ERD, and prototype screenshots.', due:'March 3, 2026', prof:'Prof. Ann Gloghienette Perez', pending:true, attachments:['ProgressReport_Template.pdf'] },
- { id:2, subject:'IT301 — Web Development', title:'React Component Portfolio', desc:'Build and deploy 5 interactive React components demonstrating hooks, state management, and API integration. Host on Vercel or Netlify and submit the live URL.', due:'March 7, 2026', prof:'Prof. Rhona Joy Tanghian', pending:false, attachments:[] },
+ { id:1, subject:'IT401 — Capstone Project I', title:'Progress Report #2', desc:'Submit your second progress report covering sprints 3–4. Include system architecture diagrams, updated ERD, and prototype screenshots.', due:'March 3, 2026', prof:'Prof. Jose Dela Cruz', pending:true, attachments:['ProgressReport_Template.pdf'] },
+ { id:2, subject:'IT301 — Web Development', title:'React Component Portfolio', desc:'Build and deploy 5 interactive React components demonstrating hooks, state management, and API integration. Host on Vercel or Netlify and submit the live URL.', due:'March 7, 2026', prof:'Prof. Ana Reyes', pending:false, attachments:[] },
 ];
 
+/* 
+ HELPERS
+ */
 function computeGWA(subjects) {
  let tu=0,tp=0;
  subjects.forEach(s=>{tu+=s.units;tp+=parseFloat(s.grade)*s.units;});
  return (tp/tu).toFixed(2);
 }
-function initials(name) { return name.split('').map(n=>n[0]).join('').slice(0,2).toUpperCase(); }
+function initials(name) { return name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase(); }
 function hasFailure(subjects) { return subjects.some(s=>parseFloat(s.grade)>3.0); }
 function getLatinHonor(gwa) {
  const g=parseFloat(gwa);
@@ -1701,6 +1844,9 @@ function getLatinHonor(gwa) {
  return null;
 }
 
+/* 
+ SIGNUP HELPERS
+ */
 let currentAcctType = 'student';
 let selectedRole = 'admin';
 
@@ -1822,9 +1968,9 @@ function doSignup() {
  }
  err.style.display = 'none';
  let displayName = first;
- if (middle) displayName += '' + middle.charAt(0) + '.';
- displayName += '' + last;
- if (suffix) displayName += '' + suffix;
+ if (middle) displayName += ' ' + middle.charAt(0) + '.';
+ displayName += ' ' + last;
+ if (suffix) displayName += ' ' + suffix;
  const roleMap = { student:'Student', admin:'Administrator', professor:'Professor' };
  USERS.push({ username, password, role: roleMap[currentAcctType] || 'Student', display: displayName, avatar: currentAvatarDataURL, course });
  const emoji = currentAcctType==='admin'?'':currentAcctType==='professor'?'':'';
@@ -1833,6 +1979,9 @@ function doSignup() {
  showLoginTab('login', tabs[0]);
 }
 
+/* 
+ LOGIN
+ */
 function showLoginTab(tab, btn) {
  document.querySelectorAll('.login-tab').forEach(b => b.classList.remove('active'));
  if(btn) btn.classList.add('active');
@@ -1864,7 +2013,7 @@ function doLogin() {
  }
  document.getElementById('navName').textContent = found.display;
  document.getElementById('navRole').textContent = found.role;
- document.getElementById('welcomeUsername').textContent = found.display.split('')[0];
+ document.getElementById('welcomeUsername').textContent = found.display.split(' ')[0];
  document.getElementById('welcomeSub').textContent = found.role + ' · Richmindale College · ' + new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
  const pn = document.getElementById('profileName');
  const pm = document.getElementById('profileMeta');
@@ -1877,11 +2026,13 @@ function doLogin() {
  if(pai) pai.textContent = initials(found.display);
  if(pav && found.avatar) pav.innerHTML = `<img src="${found.avatar}" alt="avatar"><div class="upload-overlay"></div>`;
  const isAdmin = found.role === 'Administrator';
+ // Role-based UI adjustments
  const isProf = found.role === 'Professor';
  const isProfOrAdmin = found.role === 'Professor' || found.role === 'Administrator';
  document.body.setAttribute('data-role', found.role.toLowerCase());
  const umNav = document.getElementById('nav-usermgmt');
  if(umNav) umNav.style.display = (found.role === 'Administrator') ? '' : 'none';
+ // Hide payments nav + notif bar for professors
  const navPay = document.getElementById('nav-payments');
  const notifBar = document.querySelector('.notif-bar');
  const gradNav = document.getElementById('nav-graduation');
@@ -1902,10 +2053,12 @@ function doLogin() {
  if (gradIcon) gradIcon.textContent = '';
  if (gradLabel) gradLabel.textContent = isAdmin ? 'Grade Encoding' : 'Graduation Request';
  }
+ // Rename Documents nav label for prof
  if (docsNav) {
  if (isProf) docsNav.innerHTML = '<span class="nav-icon"></span> Learning Materials';
  else docsNav.innerHTML = '<span class="nav-icon"></span> Documents';
  }
+ // Show correct page content
  renderDocumentsPage(found.role);
  renderGradePage(found.role);
  renderDashboard(found.role);
@@ -1923,12 +2076,14 @@ function doLogin() {
  renderCalendar();
  const cd = document.getElementById('currentDate');
  if(cd) cd.textContent = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+ // Set email displays (no obfuscation)
  const userEmail = found.username + '@richmindale.edu.ph';
  const settingsEmailEl = document.getElementById('settingsEmailDisplay');
  const profileEmailEl = document.getElementById('pInfoEmail');
  if(settingsEmailEl) settingsEmailEl.textContent = userEmail;
  if(profileEmailEl) profileEmailEl.textContent = userEmail;
  } else {
+ err.textContent = 'Incorrect username or password. Please try again.';
  err.style.display = 'block';
  err.classList.remove('shake');
  void err.offsetWidth;
@@ -1951,6 +2106,9 @@ function showSignoutConfirm() {
  document.getElementById('signoutModal').classList.add('open');
 }
 
+/* 
+ NAVIGATION
+ */
 function navigate(page) {
  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -1962,6 +2120,9 @@ function navigate(page) {
  if(dd) dd.classList.remove('open');
 }
 
+/* 
+ NOTIFICATIONS
+ */
 function toggleNotif() {
  document.getElementById('notifDropdown').classList.toggle('open');
 }
@@ -1979,12 +2140,16 @@ document.addEventListener('keydown', e => {
  if(e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
 });
 
+/* 
+ DASHBOARD (role-aware)
+ */
 function renderDashboard(role) {
  const isAdmin = role === 'Administrator';
  const isProf = role === 'Professor';
  const isStudent = role === 'Student';
  const isRegistrar = role === 'Registrar';
 
+ // Stats grid 
  const statsEl = document.getElementById('dashboardStats');
  if (statsEl) {
  let statsHTML = '';
@@ -1992,20 +2157,16 @@ function renderDashboard(role) {
  if (isAdmin || isProf) {
  const profStudentCount = isProf ? getProfVisibleStudents().length : 1248;
  const statLabel = isProf ? 'My Students' : 'Total Enrollees';
- const statSub = isProf ? (currentUser.display) : 'A.Y. 2025–2026';
- statsHTML += `
- <div class="stat-card clickable" onclick="navigate('students')">
- <div class="stat-icon"></div>
- <div class="stat-label">${statLabel}</div>
- <div class="stat-value" style="color:var(--blue-light)">${isProf ? profStudentCount : '1,248'}</div>
- <div class="stat-sub">${statSub}</div>
- </div>`;
- // Update subtitle
- const subtitle = document.getElementById('studentsPageSubtitle');
- if (subtitle && isProf) subtitle.textContent = 'Showing students enrolled in your subjects';
+ const statSub = isProf ? currentUser.display : 'A.Y. 2025–2026';
+ statsHTML += '<div class="stat-card clickable" onclick="navigate(\'students\')">'
+  + '<div class="stat-label">' + statLabel + '</div>'
+  + '<div class="stat-value" style="color:var(--blue-light)">' + (isProf ? profStudentCount : '1,248') + '</div>'
+  + '<div class="stat-sub">' + statSub + '</div>'
+  + '</div>';
  }
 
  if (isAdmin || isRegistrar) {
+ // Pending Payments — admin & registrar only
  statsHTML += `
  <div class="stat-card clickable" onclick="navigate('payments')">
  <div class="stat-icon"></div>
@@ -2016,6 +2177,7 @@ function renderDashboard(role) {
  }
 
  if (isStudent) {
+ // Student sees their own balance
  statsHTML += `
  <div class="stat-card clickable" onclick="navigate('payments')">
  <div class="stat-icon"></div>
@@ -2025,6 +2187,7 @@ function renderDashboard(role) {
  </div>`;
  }
 
+ // Everyone sees GWA average / units
  if (isStudent) {
  const myStudentData = STUDENTS.find(s => s.name === (currentUser?.display || '')) || STUDENTS[0];
  const myGwa = myStudentData ? computeGWA(myStudentData.subjects) : '—';
@@ -2060,13 +2223,16 @@ function renderDashboard(role) {
  statsEl.innerHTML = statsHTML;
  }
 
+ // Admin charts visibility 
  const adminCharts = document.getElementById('adminCharts');
  if (adminCharts) adminCharts.style.display = (isAdmin || isProf) ? 'grid' : 'none';
 
+ // Sections container 
  const sectionsEl = document.getElementById('sectionsContainer');
  if (!sectionsEl) return;
 
  if (isStudent) {
+ // Student sees only their own section card (confidential)
  const myStudent = STUDENTS.find(s => s.name === (currentUser?.display || '')) || STUDENTS[0];
  const mySection = myStudent ? myStudent.section : 'BSIT 4-A';
  const sectionMates = STUDENTS.filter(s => s.section === mySection);
@@ -2102,29 +2268,29 @@ function renderDashboard(role) {
  </div>
  </div>`;
 
- } else if (isAdmin) {
- // Admin: group by course
- const courseMap = {};
+ } else if (isAdmin || isProf) {
+ // Admin & Prof see ALL sections with full student details
+ const sectionMap = {};
  STUDENTS.forEach(s => {
- if (!courseMap[s.course]) courseMap[s.course] = [];
- courseMap[s.course].push(s);
+ if (!sectionMap[s.section]) sectionMap[s.section] = [];
+ sectionMap[s.section].push(s);
  });
- const courseKeys = Object.keys(courseMap).sort();
+ const sectionKeys = Object.keys(sectionMap).sort();
 
  sectionsEl.innerHTML = `
  <div style="font-size:16px;font-weight:800;color:#1a1a2e;margin-bottom:16px;"> Students per Course</div>
  <div class="sections-grid">
- ${courseKeys.map(course => {
- const students = courseMap[course];
+ ${sectionKeys.map(sec => {
+ const students = sectionMap[sec];
  const preview = students.slice(0, 3);
  const more = students.length - preview.length;
  return `<div class="section-card">
  <div class="section-card-header">
  <div>
- <div class="section-name">${course}</div>
- <div class="section-count">${students.length} student${students.length!==1?'s':''}</div>
+ <div class="section-name">${sec}</div>
+ <div class="section-count">${students[0].course} · ${students[0].year}</div>
  </div>
- <span class="badge badge-blue">${students.length}</span>
+ <span class="badge badge-blue">${students.length} students</span>
  </div>
  <div class="section-student-list">
  ${preview.map(s => `
@@ -2143,6 +2309,7 @@ function renderDashboard(role) {
  </div>`;
 
  } else if (isRegistrar) {
+ // Registrar sees section summary (count only, no grades/IDs)
  const sectionMap = {};
  STUDENTS.forEach(s => {
  if (!sectionMap[s.section]) sectionMap[s.section] = [];
@@ -2168,6 +2335,9 @@ function renderDashboard(role) {
  }
 }
 
+/* 
+ PAYMENTS PAGE (role-aware)
+ */
 function renderPaymentsPage(role) {
  const container = document.getElementById('paymentsPageContent');
  if (!container) return;
@@ -2175,10 +2345,11 @@ function renderPaymentsPage(role) {
  const isRegistrar = role === 'Registrar';
 
  if (isAdmin || isRegistrar) {
+ // Admin / Registrar: school-wide payments overview
  container.innerHTML = `
  <div class="page-header">
  <h1> ${isAdmin ? 'Payments Overview' : 'Finance Records'}</h1>
- <p>${isAdmin ? 'Payment status and outstanding balances' : 'Student payment records'}</p>
+ <p>${isAdmin ? 'School-wide payment status and outstanding balances' : 'View and track student payment records'}</p>
  </div>
  <div class="stats-grid" style="margin-bottom:24px;">
  <div class="stat-card">
@@ -2224,6 +2395,7 @@ function renderPaymentsPage(role) {
  </table>
  </div>`;
  } else {
+ // Student: personal payments
  container.innerHTML = `
  <div class="page-header">
  <h1> My Payments</h1>
@@ -2284,12 +2456,16 @@ function renderPaymentsPage(role) {
  }
 }
 
+/* 
+ STUDENTS PAGE (role-aware)
+ */
 function renderStudentsPage(role) {
  const isStudent = role === 'Student';
  const page = document.getElementById('page-students');
  if (!page) return;
 
  if (isStudent) {
+ // Student sees only their own profile info
  const me = STUDENTS.find(s => s.name === (currentUser?.display || '')) || STUDENTS[0];
  if (!me) return;
  const gwa = computeGWA(me.subjects);
@@ -2341,6 +2517,7 @@ function renderStudentsPage(role) {
  </table>
  </div>`;
  } else {
+ // Admin / Prof / Registrar: full student table
  page.innerHTML = `
  <div class="page-header">
  <h1> Students</h1>
@@ -2372,10 +2549,13 @@ function renderStudentsPage(role) {
  <div class="empty-icon"></div>No students found matching your search.
  </div>
  </div>`;
- renderStudentTable(getProfVisibleStudents());
+ renderStudentTable(STUDENTS);
  }
 }
 
+/* 
+ RENDER STUDENTS TABLE
+ */
 function renderStudentTable(list) {
  const tbody = document.getElementById('studentTableBody');
  const empty = document.getElementById('emptyState');
@@ -2387,7 +2567,7 @@ function renderStudentTable(list) {
  if(tbody) tbody.innerHTML = list.map(s => {
  const gwa = computeGWA(s.subjects);
  const fail = hasFailure(s.subjects);
- const lastActive = s.active ? ' Active now' : ' 58 min ago';
+ const lastActive = s.active ? '🟢 Active now' : ' 58 min ago';
  const av = s.avatar
  ? `<div class="mini-avatar"><img src="${s.avatar}" alt="${initials(s.name)}"></div>`
  : `<div class="mini-avatar" style="background:${s.color};">${initials(s.name)}</div>`;
@@ -2405,14 +2585,14 @@ function renderStudentTable(list) {
 }
 
 function getProfVisibleStudents() {
- const isProf = currentUser && currentUser.role === 'Professor';
- if (!isProf) return STUDENTS;
+ if (!currentUser || currentUser.role !== 'Professor') return STUDENTS;
  const profSubs = currentUser.subjects || [];
  return STUDENTS.filter(s => s.subjects.some(sub => profSubs.includes(sub.code)));
 }
 
 function filterStudents() {
- const q = (document.getElementById('studentSearch')?.value || '').toLowerCase();
+ const inp = document.getElementById('studentSearch');
+ const q = (inp ? inp.value : '').toLowerCase();
  const base = getProfVisibleStudents();
  const filtered = q ? base.filter(s => s.name.toLowerCase().includes(q) || s.id.includes(q) || s.course.toLowerCase().includes(q)) : base;
  renderStudentTable(filtered);
@@ -2421,11 +2601,12 @@ function filterStudents() {
 function viewStudentById(id) {
  const s = STUDENTS.find(x => x.id === id);
  if (!s) return;
- const isProf = currentUser && currentUser.role === 'Professor';
- if (isProf) {
- const profSubs = currentUser.subjects || [];
- const hasAccess = s.subjects.some(sub => profSubs.includes(sub.code));
- if (!hasAccess) { alert('Access denied. This student is not enrolled in any of your subjects.'); return; }
+ if (currentUser && currentUser.role === 'Professor') {
+  const profSubs = currentUser.subjects || [];
+  if (!s.subjects.some(sub => profSubs.includes(sub.code))) {
+   alert('Access denied. This student is not enrolled in any of your subjects.');
+   return;
+  }
  }
  const gwa = computeGWA(s.subjects);
  const honor = getLatinHonor(gwa);
@@ -2457,12 +2638,14 @@ function viewStudentById(id) {
  document.getElementById('studentModal').classList.add('open');
 }
 
+/* 
+ ACADEMIC TABLE
+ */
 function renderAcademicTable(filter = '') {
  const container = document.getElementById('academicCardsContainer');
  if(!container) return;
  const filterLow = filter.toLowerCase();
- const base = getProfVisibleStudents();
- const filtered = base.filter(s =>
+ const filtered = STUDENTS.filter(s =>
  !filterLow ||
  s.name.toLowerCase().includes(filterLow) ||
  s.id.toLowerCase().includes(filterLow) ||
@@ -2494,7 +2677,7 @@ function renderAcademicTable(filter = '') {
  <div class="table-card" style="overflow:hidden;">
  <div class="table-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
  <div style="display:flex;align-items:center;gap:12px;">
- <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#d97706,#92400e);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;flex-shrink:0;">${s.name.split('').map(n=>n[0]).slice(0,2).join('')}</div>
+ <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#d97706,#92400e);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;flex-shrink:0;">${s.name.split(' ').map(n=>n[0]).slice(0,2).join('')}</div>
  <div>
  <div style="font-weight:700;font-size:14px;color:#1a1a2e;">${s.name}</div>
  <div style="font-size:12px;color:#6b7280;">${s.id} · ${s.course} · ${s.year} · ${s.section}</div>
@@ -2538,6 +2721,9 @@ function filterAcademicTable() {
  renderAcademicTable(q);
 }
 
+/* 
+ SUBJECTS
+ */
 function renderSubjects() {
  const el = document.getElementById('subjectsList');
  if(!el) return;
@@ -2580,6 +2766,9 @@ function viewSubject(code) {
  if(sm) sm.classList.add('open');
 }
 
+/* 
+ DEPARTMENTS
+ */
 function renderDepartments() {
  const el = document.getElementById('departmentsList');
  if(!el) return;
@@ -2612,6 +2801,9 @@ function renderDepartments() {
  `).join('');
 }
 
+/* 
+ ASSIGNMENTS
+ */
 function renderAssignments() {
  const el = document.getElementById('assignmentsList');
  if(!el) return;
@@ -2635,6 +2827,9 @@ function renderAssignments() {
  `).join('');
 }
 
+/* 
+ FORUM
+ */
 function renderForum() {
  const el = document.getElementById('forumPosts');
  if(!el) return;
@@ -2650,7 +2845,7 @@ function renderForum() {
  </div>
  <div class="forum-post-body">${p.content}</div>
  <div class="forum-post-actions">
- <button class="forum-action-btn ${p.liked?'liked':''}" onclick="toggleLike(${p.id},this)"><span id="likes-${p.id}">${p.likes}</span></button>
+ <button class="forum-action-btn ${p.liked?'liked':''}" onclick="toggleLike(${p.id},this)"> <span id="likes-${p.id}">${p.likes}</span></button>
  <button class="forum-action-btn"> ${p.comments} Comments</button>
  <button class="forum-action-btn"> Share</button>
  </div>
@@ -2677,6 +2872,9 @@ function postForum() {
  renderForum();
 }
 
+/* 
+ EVENTS
+ */
 function renderEvents() {
  const el = document.getElementById('eventsList');
  if(!el) return;
@@ -2732,15 +2930,20 @@ function addComment(id) {
  renderEvents();
 }
 
+/* 
+ CALENDAR
+ */
 let calYear = new Date().getFullYear();
 let calMonth = new Date().getMonth();
 let calSelectedDay = null;
 
+// Admin/school events (visible to all, deletable only by admin)
 const ADMIN_EVENTS = [
  { id:'adm-1', title:' Graduation Ceremony 2026', date:'2026-03-20', time:'09:00', desc:'Main Auditorium. All graduating students required. Full academic regalia.', isAdmin:true },
  { id:'adm-2', title:' Midterm Examinations', date:'2026-03-02', time:'', desc:'Check your department bulletin for specific exam schedules and room assignments.', isAdmin:true },
  { id:'adm-3', title:' IT Symposium 2026', date:'2026-03-10', time:'13:00', desc:'Annual IT Symposium featuring industry speakers. Topics: AI, cybersecurity, and future of software.', isAdmin:true },
 ];
+// Personal events per user
 const USER_EVENTS = {};
 
 function getVisibleEvents() {
@@ -2754,7 +2957,7 @@ function renderCalendar() {
  const title = document.getElementById('calMonth');
  if(!grid || !title) return;
  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
- title.textContent = months[calMonth] + '' + calYear;
+ title.textContent = months[calMonth] + ' ' + calYear;
  const events = getVisibleEvents();
  const eventDaySet = new Set();
  events.forEach(ev => {
@@ -2791,7 +2994,7 @@ function renderCalEventsList() {
  const selStr = calYear+'-'+String(calMonth+1).padStart(2,'0')+'-'+String(calSelectedDay).padStart(2,'0');
  filtered = events.filter(ev => ev.date===selStr);
  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
- titleText = '' + months[calMonth] + '' + calSelectedDay + ', ' + calYear;
+ titleText = ' ' + months[calMonth] + ' ' + calSelectedDay + ', ' + calYear;
  } else {
  const now = new Date(); now.setHours(0,0,0,0);
  filtered = events.filter(ev => new Date(ev.date+'T00:00:00')>=now).sort((a,b)=>new Date(a.date)-new Date(b.date));
@@ -2807,7 +3010,7 @@ function renderCalEventsList() {
  const evDate = new Date(ev.date+'T00:00:00');
  const now2 = new Date(); now2.setHours(0,0,0,0);
  const isToday2 = evDate.getTime()===now2.getTime();
- const dateLabel = months2[evDate.getMonth()]+''+evDate.getDate()+', '+evDate.getFullYear()+(ev.time?' · '+formatCalTime(ev.time):'')+(isToday2?' · <strong style="color:#c1121f;">TODAY</strong>':'');
+ const dateLabel = months2[evDate.getMonth()]+' '+evDate.getDate()+', '+evDate.getFullYear()+(ev.time?' · '+formatCalTime(ev.time):'')+(isToday2?' · <strong style="color:#c1121f;">TODAY</strong>':'');
  const isOwn = !ev.isAdmin && (USER_EVENTS[uid]||[]).some(e=>e.id===ev.id);
  const canDel = isAdmin || isOwn;
  return `<div class="assignment-card" style="margin-bottom:10px;">
@@ -2830,7 +3033,7 @@ function formatCalTime(t) {
  if(!t) return '';
  const [h,m] = t.split(':');
  const hh = parseInt(h);
- return (hh%12||12)+':'+m+''+(hh<12?'AM':'PM');
+ return (hh%12||12)+':'+m+' '+(hh<12?'AM':'PM');
 }
 
 function calDayClick(d) {
@@ -2890,8 +3093,11 @@ function deleteCalEvent(id) {
  renderCalendar();
 }
 
+/* 
+ CHAT
+ */
 const CHATS = [
- { id:1, name:'Prof. Ann Gloghienette Perez', role:'Professor', online:true, msgs:[{own:false,text:'Good morning! Please submit your progress report by tonight.'},{own:true,text:'Yes, prof! Will submit before 11PM. Thank you!'}] },
+ { id:1, name:'Prof. Jose Dela Cruz', role:'Professor', online:true, msgs:[{own:false,text:'Good morning! Please submit your progress report by tonight.'},{own:true,text:'Yes, prof! Will submit before 11PM. Thank you!'}] },
  { id:2, name:'Maria Santos', role:'Student', online:false, msgs:[{own:false,text:'Kamusta yung notes mo sa IT203?'},{own:true,text:'Okay naman! Pwede kitang tulungan bukas.'}] },
  { id:3, name:'Registrar Office', role:'Registrar', online:true, msgs:[{own:false,text:'Your TOR request is ready for pickup at the Registrar\'s Office.'},{own:true,text:'Thank you! Will pick it up tomorrow morning.'}] },
 ];
@@ -2920,7 +3126,7 @@ function selectChat(id) {
  const chat = CHATS.find(c => c.id === id);
  if(!chat) return;
  const hw = document.getElementById('chatWindowHeader');
- if(hw) hw.innerHTML = `<div class="mini-avatar" style="width:36px;height:36px;background:linear-gradient(135deg,#c1121f,#8d0020);">${initials(chat.name)}</div><div><div style="font-weight:700;font-size:14px;color:#1a1a2e;">${chat.name}</div><div style="font-size:12px;color:${chat.online?'#166534':'#9ca3af'};">${chat.online?' Online':' Offline'}</div></div>`;
+ if(hw) hw.innerHTML = `<div class="mini-avatar" style="width:36px;height:36px;background:linear-gradient(135deg,#c1121f,#8d0020);">${initials(chat.name)}</div><div><div style="font-weight:700;font-size:14px;color:#1a1a2e;">${chat.name}</div><div style="font-size:12px;color:${chat.online?'#166534':'#9ca3af'};">${chat.online?'🟢 Online':' Offline'}</div></div>`;
  const msgs = document.getElementById('chatMessages');
  if(msgs) { msgs.innerHTML = chat.msgs.map(m => `<div class="chat-msg ${m.own?'own':''}"><div class="mini-avatar" style="width:30px;height:30px;background:${m.own?'#c1121f':'#6b7280'};font-size:11px;">${m.own?(currentUser?initials(currentUser.display):'Me'):'RC'}</div><div class="chat-bubble">${m.text}</div></div>`).join(''); msgs.scrollTop = msgs.scrollHeight; }
 }
@@ -2936,6 +3142,9 @@ function sendChatMsg() {
  setTimeout(() => { chat.msgs.push({ own:false, text:'Thanks for your message! I\'ll get back to you shortly.' }); selectChat(activeChat); }, 1200);
 }
 
+/* 
+ MODALS
+ */
 function openModal(id) {
  const m = document.getElementById(id);
  if(m) m.classList.add('open');
@@ -2976,11 +3185,17 @@ function printReceipt() {
  if(modal) modal.classList.add('open');
 }
 
+/* 
+ PAYMENTS
+ */
 function showHowToPay() {
  const modal = document.getElementById('howToPayModal');
  if(modal) modal.classList.add('open');
 }
 
+/* 
+ NOTES
+ */
 const NOTES = [];
 function addNote() {
  const ta = document.querySelector('#page-notes textarea');
@@ -2996,6 +3211,9 @@ function renderNotes() {
  el.innerHTML = NOTES.map((n,i) => `<div class="assignment-card" style="cursor:default;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:11px;color:#9ca3af;">${n.date}</span><button onclick="NOTES.splice(${i},1);renderNotes();" style="background:none;border:none;color:#9ca3af;cursor:pointer;font-size:14px;"></button></div><div style="font-size:13px;color:#374151;line-height:1.6;">${n.text}</div></div>`).join('');
 }
 
+/* 
+ PREFERENCES / THEME / FONT
+ */
 function setTheme(theme, btn) {
  document.body.className = document.body.className.replace(/theme-\S+/g,'').trim();
  if(theme !== 'default') document.body.classList.add('theme-' + theme);
@@ -3012,11 +3230,15 @@ function toggleSetting(btn) {
  btn.classList.toggle('on');
 }
 
+/* 
+ DOCUMENTS PAGE (role-aware)
+ */
 const LEARNING_MATERIALS = [];
 
 function renderDocumentsPage(role) {
  const el = document.getElementById('docsPageContent');
  if (!el) {
+ // page not yet dynamic — first time setup, replace static content
  const pg = document.getElementById('page-documents');
  if (!pg) return;
  pg.innerHTML = '<div id="docsPageContent"></div>';
@@ -3089,6 +3311,7 @@ function renderDocumentsPage(role) {
  <div id="materialsList">${renderMaterialsList()}</div>
  `;
  } else {
+ // Student/Admin/Registrar view
  container.innerHTML = `
  <div class="page-header">
  <h1> Documents & Requests</h1>
@@ -3170,7 +3393,7 @@ const FILE_ICONS = {
 function handleMatFile(input) {
  const file = input.files[0];
  if (file) {
- document.getElementById('fileDropLabel').textContent = '' + file.name;
+ document.getElementById('fileDropLabel').textContent = ' ' + file.name;
  }
 }
 
@@ -3200,6 +3423,7 @@ function uploadMaterial() {
  uploader: currentUser?.display || 'Professor'
  });
 
+ // Reset form
  document.getElementById('matTitle').value = '';
  document.getElementById('matSubject').value = '';
  document.getElementById('matCategory').value = '';
@@ -3221,6 +3445,10 @@ function deleteMaterial(i) {
  if(mc) mc.textContent = `(${LEARNING_MATERIALS.length} file${LEARNING_MATERIALS.length!==1?'s':''})`;
 }
 
+/* 
+ GRADE ENCODING PAGE (role-aware)
+ */
+// Store grade inputs: gradeData[studentId][subjectCode] = grade
 const gradeData = {};
 STUDENTS.forEach(s => {
  gradeData[s.id] = {};
@@ -3235,6 +3463,7 @@ function renderGradePage(role) {
  if (!container) return;
 
  if (role === 'Professor' || role === 'Administrator') {
+ // Get unique subjects from all students
  const allSubjectCodes = [...new Set(STUDENTS.flatMap(s => s.subjects.map(sub => sub.code)))];
  const allSubjectTitles = {};
  STUDENTS.forEach(s => s.subjects.forEach(sub => { allSubjectTitles[sub.code] = sub.desc || sub.code; }));
@@ -3279,6 +3508,7 @@ function renderGradePage(role) {
  </div>
  `;
  } else {
+ // Student sees graduation request form
  const user = currentUser || {};
  container.innerHTML = `
  <div class="page-header">
@@ -3319,6 +3549,7 @@ function renderGradePage(role) {
 }
 
 function buildGradeTable(filterSubject, filterStudent) {
+ // Determine which students to show
  const students = filterStudent ? STUDENTS.filter(s => s.id === filterStudent) : STUDENTS;
  if (!students.length) return '<div style="text-align:center;color:#9ca3af;padding:40px;">No students found.</div>';
 
@@ -3378,7 +3609,7 @@ function buildGradeTable(filterSubject, filterStudent) {
  </tbody>
  </table>
  <div style="padding:10px 18px;border-top:1px solid rgba(0,0,0,0.07);display:flex;justify-content:flex-end;">
- <button class="btn-action primary" style="font-size:12px;padding:8px 16px;" onclick="saveAllGrades('${s.id}')"> Save All Grades for ${s.name.split('')[0]}</button>
+ <button class="btn-action primary" style="font-size:12px;padding:8px 16px;" onclick="saveAllGrades('${s.id}')"> Save All Grades for ${s.name.split(' ')[0]}</button>
  </div>
  </div>
  `;
@@ -3408,14 +3639,17 @@ function saveGrade(studentId, subCode) {
  input.value = rounded.toFixed(2);
  gradeData[studentId] = gradeData[studentId] || {};
  gradeData[studentId][subCode] = rounded.toFixed(2);
+ // Also update STUDENTS array
  const student = STUDENTS.find(s => s.id === studentId);
  if (student) {
  const sub = student.subjects.find(s => s.code === subCode);
  if (sub) sub.grade = rounded.toFixed(2);
  }
+ // Refresh GWA display
  const gwaEl = document.getElementById(`gwa-${studentId}`);
  if (gwaEl && student) gwaEl.textContent = computeGWA(student.subjects);
  previewGradeChange(studentId, subCode, input);
+ // Flash save confirmation
  input.style.background = 'rgba(22,101,52,0.12)';
  input.style.borderColor = '#166534';
  setTimeout(() => { input.style.background = 'rgba(255,255,255,0.9)'; input.style.borderColor = 'rgba(0,0,0,0.14)'; }, 1200);
@@ -3456,6 +3690,9 @@ function filterGradeStudent(id, btn) {
  document.getElementById('gradeTableWrap').innerHTML = buildGradeTable(selectedGradeSubject, selectedGradeStudent);
 }
 
+/* 
+ PROFILE AVATAR UPDATE
+ */
 function updateProfileAvatar(input) {
  const file = input.files[0];
  if(!file) return;
@@ -3464,246 +3701,252 @@ function updateProfileAvatar(input) {
  const el = document.getElementById('profileAvatar');
  if(el) { el.innerHTML = `<img src="${e.target.result}" alt="avatar"><div class="upload-overlay"></div>`; el.onclick = () => document.getElementById('profileAvatarFile').click(); }
  const nav = document.getElementById('navAvatar');
- if(nav) nav.innerHTML = `<img src="${e.target.result}" alt="avatar">
+ if(nav) nav.innerHTML = `<img src="${e.target.result}" alt="avatar">`;
+ if(currentUser) currentUser.avatar = e.target.result;
+ };
+ reader.readAsDataURL(file);
+}
+
+/* 
+ INIT ON LOAD
+ */
+window.addEventListener('DOMContentLoaded', () => {
+ renderChatList();
+ selectChat(1);
+ renderNotes();
+});
+
+</script>
 
 <!-- ADMIN LOGIN MODAL -->
 <div class="modal-overlay" id="adminLoginModal" onclick="if(event.target===this)closeAdminLogin()" style="z-index:9999;">
-  <div class="modal" style="max-width:400px;width:100%;border-top:4px solid #92400e;">
-    <div class="modal-header" style="background:linear-gradient(135deg,#1a0f00,#3d2800);">
-      <div class="modal-title" style="color:#d4a017;font-weight:800;letter-spacing:0.03em;">Administrator Access</div>
-      <button class="modal-close" onclick="closeAdminLogin()" style="color:#d4a017;">x</button>
-    </div>
-    <div style="padding:24px;display:flex;flex-direction:column;gap:14px;">
-      <div style="font-size:12px;color:#6b7280;background:rgba(146,64,14,0.06);border:1px solid rgba(146,64,14,0.15);border-radius:8px;padding:10px 14px;">
-        This area is restricted to authorized administrators only.
-      </div>
-      <div class="field">
-        <label>Admin Username</label>
-        <div class="input-wrap"><span class="icon"></span>
-          <input type="text" id="adminLoginUser" placeholder="Enter admin username" onkeydown="if(event.key==='Enter')doAdminLogin()">
-        </div>
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <div class="input-wrap"><span class="icon"></span>
-          <input type="password" id="adminLoginPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doAdminLogin()">
-        </div>
-      </div>
-      <button class="btn-primary" onclick="doAdminLogin()" style="background:linear-gradient(135deg,#92400e,#3d2800);">Sign In as Admin</button>
-      <div class="error-msg" id="adminLoginError">Incorrect admin credentials. Access denied.</div>
-    </div>
+ <div class="modal" style="max-width:400px;width:100%;border-top:4px solid #92400e;">
+  <div class="modal-header" style="background:linear-gradient(135deg,#1a0f00,#3d2800);">
+   <div class="modal-title" style="color:#d4a017;font-weight:800;">Administrator Access</div>
+   <button class="modal-close" onclick="closeAdminLogin()" style="color:#d4a017;">x</button>
   </div>
+  <div style="padding:24px;display:flex;flex-direction:column;gap:14px;">
+   <div style="font-size:12px;color:#6b7280;background:rgba(146,64,14,0.06);border:1px solid rgba(146,64,14,0.15);border-radius:8px;padding:10px 14px;">
+    This area is restricted to authorized administrators only.
+   </div>
+   <div class="field">
+    <label>Admin Username</label>
+    <div class="input-wrap"><span class="icon"></span>
+     <input type="text" id="adminLoginUser" placeholder="Enter admin username" onkeydown="if(event.key==='Enter')doAdminLogin()">
+    </div>
+   </div>
+   <div class="field">
+    <label>Password</label>
+    <div class="input-wrap"><span class="icon"></span>
+     <input type="password" id="adminLoginPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doAdminLogin()">
+    </div>
+   </div>
+   <button class="btn-primary" onclick="doAdminLogin()" style="background:linear-gradient(135deg,#92400e,#3d2800);">Sign In as Admin</button>
+   <div class="error-msg" id="adminLoginError">Incorrect admin credentials. Access denied.</div>
+  </div>
+ </div>
 </div>
 
 <!-- USER MANAGEMENT MODAL -->
 <div class="modal-overlay" id="userMgmtModal" onclick="if(event.target===this)closeUserMgmt()" style="z-index:9998;">
-  <div class="modal" style="max-width:820px;width:100%;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;">
-    <div class="modal-header">
-      <div class="modal-title">User Management</div>
-      <button class="modal-close" onclick="closeUserMgmt()">x</button>
-    </div>
-    <div style="padding:20px;overflow-y:auto;flex:1;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
-        <div style="font-size:13px;color:#6b7280;" id="userMgmtCount">0 users</div>
-        <button class="btn-action primary" onclick="openCreateUserForm()">+ Add New User</button>
-      </div>
-      <div id="userMgmtList"></div>
-    </div>
+ <div class="modal" style="max-width:820px;width:100%;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;">
+  <div class="modal-header">
+   <div class="modal-title">User Management</div>
+   <button class="modal-close" onclick="closeUserMgmt()">x</button>
   </div>
+  <div style="padding:20px;overflow-y:auto;flex:1;">
+   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+    <div style="font-size:13px;color:#6b7280;" id="userMgmtCount">0 users</div>
+    <button class="btn-action primary" onclick="openCreateUserForm()">+ Add New User</button>
+   </div>
+   <div id="userMgmtList"></div>
+  </div>
+ </div>
 </div>
 
 <!-- CREATE / EDIT USER MODAL -->
 <div class="modal-overlay" id="createUserModal" onclick="if(event.target===this)closeCreateUser()" style="z-index:10000;">
-  <div class="modal" style="max-width:460px;width:100%;">
-    <div class="modal-header">
-      <div class="modal-title" id="createUserTitle">Create New User</div>
-      <button class="modal-close" onclick="closeCreateUser()">x</button>
-    </div>
-    <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
-      <input type="hidden" id="editUserId">
-      <div class="field">
-        <label>Full Name</label>
-        <input type="text" id="cuName" placeholder="e.g. Juan Dela Cruz" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;">
-      </div>
-      <div class="field">
-        <label>Username</label>
-        <input type="text" id="cuUsername" placeholder="e.g. juan.delacruz" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;">
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <input type="password" id="cuPassword" placeholder="Leave blank to keep existing" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;">
-      </div>
-      <div class="field">
-        <label>Role</label>
-        <select id="cuRole" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;background:#fff;">
-          <option value="Student">Student</option>
-          <option value="Professor">Professor</option>
-          <option value="Registrar">Registrar</option>
-          <option value="Administrator">Administrator</option>
-        </select>
-      </div>
-      <div class="error-msg" id="createUserError">Please fill in all required fields.</div>
-      <div style="display:flex;gap:10px;justify-content:flex-end;">
-        <button class="btn-action" onclick="closeCreateUser()">Cancel</button>
-        <button class="btn-action primary" onclick="saveUser()">Save User</button>
-      </div>
-    </div>
+ <div class="modal" style="max-width:460px;width:100%;">
+  <div class="modal-header">
+   <div class="modal-title" id="createUserTitle">Create New User</div>
+   <button class="modal-close" onclick="closeCreateUser()">x</button>
   </div>
+  <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+   <div class="field">
+    <label>Full Name</label>
+    <input type="text" id="cuName" placeholder="e.g. Juan Dela Cruz" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;">
+   </div>
+   <div class="field">
+    <label>Username</label>
+    <input type="text" id="cuUsername" placeholder="e.g. juan.delacruz" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;">
+   </div>
+   <div class="field">
+    <label>Password</label>
+    <input type="password" id="cuPassword" placeholder="Leave blank to keep existing" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;">
+   </div>
+   <div class="field">
+    <label>Role</label>
+    <select id="cuRole" style="width:100%;padding:10px;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;font-family:inherit;font-size:13px;background:#fff;">
+     <option value="Student">Student</option>
+     <option value="Professor">Professor</option>
+     <option value="Registrar">Registrar</option>
+     <option value="Administrator">Administrator</option>
+    </select>
+   </div>
+   <div class="error-msg" id="createUserError">Please fill in all required fields.</div>
+   <div style="display:flex;gap:10px;justify-content:flex-end;">
+    <button class="btn-action" onclick="closeCreateUser()">Cancel</button>
+    <button class="btn-action primary" onclick="saveUser()">Save User</button>
+   </div>
+  </div>
+ </div>
 </div>
-
 <script>
-
-/* ── ADMIN LOGIN ── */
 function showAdminLogin() {
-  const m = document.getElementById('adminLoginModal');
-  if(m) { m.classList.add('open'); setTimeout(()=>document.getElementById('adminLoginUser').focus(),100); }
+ var m = document.getElementById('adminLoginModal');
+ if(m) { m.classList.add('open'); setTimeout(function(){ document.getElementById('adminLoginUser').focus(); }, 100); }
 }
 function closeAdminLogin() {
-  const m = document.getElementById('adminLoginModal');
-  if(m) m.classList.remove('open');
-  document.getElementById('adminLoginUser').value = '';
-  document.getElementById('adminLoginPass').value = '';
-  document.getElementById('adminLoginError').style.display = 'none';
+ var m = document.getElementById('adminLoginModal');
+ if(m) m.classList.remove('open');
+ document.getElementById('adminLoginUser').value = '';
+ document.getElementById('adminLoginPass').value = '';
+ document.getElementById('adminLoginError').style.display = 'none';
 }
 function doAdminLogin() {
-  const u = document.getElementById('adminLoginUser').value.trim();
-  const p = document.getElementById('adminLoginPass').value;
-  const err = document.getElementById('adminLoginError');
-  const found = USERS.find(x => x.username === u && x.password === p && x.role === 'Administrator');
-  if(found) {
-    closeAdminLogin();
-    document.getElementById('loginUser').value = u;
-    document.getElementById('loginPass').value = p;
-    doLogin();
-  } else {
-    err.style.display = 'block';
-    err.classList.remove('shake');
-    void err.offsetWidth;
-    err.classList.add('shake');
-    document.getElementById('adminLoginPass').value = '';
-  }
+ var u = document.getElementById('adminLoginUser').value.trim();
+ var p = document.getElementById('adminLoginPass').value;
+ var err = document.getElementById('adminLoginError');
+ var found = USERS.find(function(x){ return x.username === u && x.password === p && x.role === 'Administrator'; });
+ if(found) {
+  closeAdminLogin();
+  document.getElementById('loginUser').value = u;
+  document.getElementById('loginPass').value = p;
+  doLogin();
+ } else {
+  err.textContent = 'Incorrect admin credentials. Access denied.';
+  err.style.display = 'block';
+  err.classList.remove('shake');
+  void err.offsetWidth;
+  err.classList.add('shake');
+  document.getElementById('adminLoginPass').value = '';
+ }
 }
-
-/* ── USER MANAGEMENT ── */
-let editingUserIndex = -1;
-
+var editingUserIndex = -1;
 function openUserMgmt() {
-  renderUserMgmtList();
-  const m = document.getElementById('userMgmtModal');
-  if(m) m.classList.add('open');
+ renderUserMgmtList();
+ var m = document.getElementById('userMgmtModal');
+ if(m) m.classList.add('open');
 }
 function closeUserMgmt() {
-  const m = document.getElementById('userMgmtModal');
-  if(m) m.classList.remove('open');
+ var m = document.getElementById('userMgmtModal');
+ if(m) m.classList.remove('open');
+}
+function togglePw(i) {
+ var txt = document.getElementById('pw-text-' + i);
+ var dots = document.getElementById('pw-dots-' + i);
+ var btn = document.getElementById('pw-btn-' + i);
+ if(!txt || !dots || !btn) return;
+ var showing = txt.style.display !== 'none';
+ txt.style.display = showing ? 'none' : 'inline';
+ dots.style.display = showing ? 'inline' : 'none';
+ btn.textContent = showing ? 'Show' : 'Hide';
 }
 function renderUserMgmtList() {
-  const el = document.getElementById('userMgmtList');
-  const ct = document.getElementById('userMgmtCount');
-  if(!el) return;
-  if(ct) ct.textContent = USERS.length + ' user' + (USERS.length!==1?'s':'');
-  const roleColors = { Administrator:'#92400e', Professor:'#1d4ed8', Student:'#166534', Registrar:'#6b21a8' };
-  el.innerHTML = `
-    <table style="width:100%;border-collapse:collapse;font-size:13px;">
-      <thead>
-        <tr style="background:rgba(0,0,0,0.04);border-bottom:2px solid rgba(0,0,0,0.08);">
-          <th style="padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;letter-spacing:0.04em;">NAME</th>
-          <th style="padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;letter-spacing:0.04em;">USERNAME</th>
-          <th style="padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;letter-spacing:0.04em;">PASSWORD</th>
-          <th style="padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;letter-spacing:0.04em;">ROLE</th>
-          <th style="padding:9px 12px;text-align:right;font-size:11px;font-weight:700;color:#6b7280;letter-spacing:0.04em;">ACTIONS</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${USERS.map((u, i) => `
-        <tr style="border-bottom:1px solid rgba(0,0,0,0.06);transition:background 0.1s;" onmouseover="this.style.background='rgba(0,0,0,0.02)'" onmouseout="this.style.background=''">
-          <td style="padding:10px 12px;">
-            <div style="display:flex;align-items:center;gap:9px;">
-              <div style="width:32px;height:32px;border-radius:50%;background:${roleColors[u.role]||'#6b7280'};display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:12px;flex-shrink:0;">${initials(u.display)}</div>
-              <span style="font-weight:600;color:#1a1a2e;">${u.display}</span>
-            </div>
-          </td>
-          <td style="padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#374151;">${u.username}</td>
-          <td style="padding:10px 12px;">
-            <span id="pw-text-${i}" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#374151;display:none;">${u.password}</span>
-            <span id="pw-dots-${i}" style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#9ca3af;letter-spacing:2px;">${'*'.repeat(u.password.length)}</span>
-            <button onclick="togglePw(${i})" id="pw-btn-${i}" style="margin-left:6px;background:none;border:none;cursor:pointer;font-size:11px;color:#6b7280;padding:2px 5px;border-radius:4px;font-family:inherit;" title="Show/hide password">Show</button>
-          </td>
-          <td style="padding:10px 12px;">
-            <span style="background:${roleColors[u.role]||'#6b7280'}20;color:${roleColors[u.role]||'#6b7280'};border:1px solid ${roleColors[u.role]||'#6b7280'}40;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;">${u.role}</span>
-          </td>
-          <td style="padding:10px 12px;text-align:right;">
-            <button onclick="openEditUserForm(${i})" style="padding:4px 11px;border:1px solid rgba(0,0,0,0.15);border-radius:6px;background:#fff;cursor:pointer;font-size:12px;font-family:inherit;margin-right:4px;">Edit</button>
-            ${u.username === 'admin' ? '<span style="font-size:11px;color:#9ca3af;">Protected</span>' : `<button onclick="deleteUser(${i})" style="padding:4px 11px;border:1px solid rgba(193,18,31,0.3);border-radius:6px;background:rgba(193,18,31,0.06);color:#c1121f;cursor:pointer;font-size:12px;font-family:inherit;">Delete</button>`}
-          </td>
-        </tr>`).join('')}
-      </tbody>
-    </table>`;
-}
-
-function togglePw(i) {
-  const txt = document.getElementById('pw-text-' + i);
-  const dots = document.getElementById('pw-dots-' + i);
-  const btn = document.getElementById('pw-btn-' + i);
-  if(!txt || !dots || !btn) return;
-  const showing = txt.style.display !== 'none';
-  txt.style.display = showing ? 'none' : 'inline';
-  dots.style.display = showing ? 'inline' : 'none';
-  btn.textContent = showing ? 'Show' : 'Hide';
+  var el = document.getElementById('userMgmtList');
+  var ct = document.getElementById('userMgmtCount');
+  if (!el) return;
+  if (ct) ct.textContent = USERS.length + ' user' + (USERS.length !== 1 ? 's' : '');
+  var rc = { Administrator:'#92400e', Professor:'#1d4ed8', Student:'#166534', Registrar:'#6b21a8' };
+  var html = '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
+  html += '<thead><tr style="background:rgba(0,0,0,0.04);border-bottom:2px solid rgba(0,0,0,0.08);">';
+  html += '<th style="padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;">NAME</th>';
+  html += '<th style="padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;">USERNAME</th>';
+  html += '<th style="padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;">PASSWORD</th>';
+  html += '<th style="padding:9px 12px;text-align:left;font-size:11px;font-weight:700;color:#6b7280;">ROLE</th>';
+  html += '<th style="padding:9px 12px;text-align:right;font-size:11px;font-weight:700;color:#6b7280;">ACTIONS</th>';
+  html += '</tr></thead><tbody>';
+  for (var i = 0; i < USERS.length; i++) {
+    var u = USERS[i];
+    var c = rc[u.role] || '#6b7280';
+    var stars = '';
+    for (var s = 0; s < u.password.length; s++) stars += '*';
+    var editBtn = '<button onclick="openEditUserForm(' + i + ')" style="padding:4px 11px;border:1px solid rgba(0,0,0,0.15);border-radius:6px;background:#fff;cursor:pointer;font-size:12px;margin-right:4px;">Edit</button>';
+    var delBtn = u.username === 'admin'
+      ? '<span style="font-size:11px;color:#9ca3af;">Protected</span>'
+      : '<button onclick="deleteUser(' + i + ')" style="padding:4px 11px;border:1px solid rgba(193,18,31,0.3);border-radius:6px;background:rgba(193,18,31,0.06);color:#c1121f;cursor:pointer;font-size:12px;">Delete</button>';
+    html += '<tr style="border-bottom:1px solid rgba(0,0,0,0.06);">';
+    html += '<td style="padding:10px 12px;">';
+    html += '<div style="display:flex;align-items:center;gap:9px;">';
+    html += '<div style="width:32px;height:32px;border-radius:50%;background:' + c + ';display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:12px;flex-shrink:0;">' + initials(u.display) + '</div>';
+    html += '<span style="font-weight:600;color:#1a1a2e;">' + u.display + '</span>';
+    html += '</div></td>';
+    html += '<td style="padding:10px 12px;font-size:12px;color:#374151;">' + u.username + '</td>';
+    html += '<td style="padding:10px 12px;">';
+    html += '<span id="pw-text-' + i + '" style="font-size:12px;color:#374151;display:none;">' + u.password + '</span>';
+    html += '<span id="pw-dots-' + i + '" style="font-size:14px;color:#9ca3af;letter-spacing:2px;">' + stars + '</span>';
+    html += '<button onclick="togglePw(' + i + ')" id="pw-btn-' + i + '" style="margin-left:6px;background:none;border:none;cursor:pointer;font-size:11px;color:#6b7280;padding:2px 5px;border-radius:4px;">Show</button>';
+    html += '</td>';
+    html += '<td style="padding:10px 12px;">';
+    html += '<span style="background:' + c + '22;color:' + c + ';border:1px solid ' + c + '55;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;">' + u.role + '</span>';
+    html += '</td>';
+    html += '<td style="padding:10px 12px;text-align:right;">' + editBtn + delBtn + '</td>';
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  el.innerHTML = html;
 }
 function openCreateUserForm() {
-  editingUserIndex = -1;
-  document.getElementById('createUserTitle').textContent = 'Create New User';
-  document.getElementById('cuName').value = '';
-  document.getElementById('cuUsername').value = '';
-  document.getElementById('cuPassword').value = '';
-  document.getElementById('cuRole').value = 'Student';
-  document.getElementById('editUserId').value = '';
-  document.getElementById('createUserError').style.display = 'none';
-  document.getElementById('createUserModal').classList.add('open');
+ editingUserIndex = -1;
+ document.getElementById('createUserTitle').textContent = 'Create New User';
+ document.getElementById('cuName').value = '';
+ document.getElementById('cuUsername').value = '';
+ document.getElementById('cuPassword').value = '';
+ document.getElementById('cuRole').value = 'Student';
+ document.getElementById('createUserError').style.display = 'none';
+ document.getElementById('createUserModal').classList.add('open');
 }
 function openEditUserForm(idx) {
-  editingUserIndex = idx;
-  const u = USERS[idx];
-  document.getElementById('createUserTitle').textContent = 'Edit User';
-  document.getElementById('cuName').value = u.display;
-  document.getElementById('cuUsername').value = u.username;
-  document.getElementById('cuPassword').value = '';
-  document.getElementById('cuRole').value = u.role;
-  document.getElementById('editUserId').value = idx;
-  document.getElementById('createUserError').style.display = 'none';
-  document.getElementById('createUserModal').classList.add('open');
+ editingUserIndex = idx;
+ var u = USERS[idx];
+ document.getElementById('createUserTitle').textContent = 'Edit User';
+ document.getElementById('cuName').value = u.display;
+ document.getElementById('cuUsername').value = u.username;
+ document.getElementById('cuPassword').value = '';
+ document.getElementById('cuRole').value = u.role;
+ document.getElementById('createUserError').style.display = 'none';
+ document.getElementById('createUserModal').classList.add('open');
 }
 function closeCreateUser() {
-  document.getElementById('createUserModal').classList.remove('open');
+ document.getElementById('createUserModal').classList.remove('open');
 }
 function saveUser() {
-  const name = document.getElementById('cuName').value.trim();
-  const username = document.getElementById('cuUsername').value.trim();
-  const password = document.getElementById('cuPassword').value;
-  const role = document.getElementById('cuRole').value;
-  const err = document.getElementById('createUserError');
-  if(!name || !username) { err.textContent = 'Full name and username are required.'; err.style.display = 'block'; return; }
-  if(editingUserIndex === -1 && !password) { err.textContent = 'Password is required for new users.'; err.style.display = 'block'; return; }
-  const dupIdx = USERS.findIndex((u, i) => u.username === username && i !== editingUserIndex);
-  if(dupIdx !== -1) { err.textContent = 'Username already exists. Please choose another.'; err.style.display = 'block'; return; }
-  if(editingUserIndex === -1) {
-    USERS.push({ username, password, role, display: name, avatar: null, subjects: [] });
-  } else {
-    USERS[editingUserIndex].display = name;
-    USERS[editingUserIndex].username = username;
-    USERS[editingUserIndex].role = role;
-    if(password) USERS[editingUserIndex].password = password;
-  }
-  closeCreateUser();
-  renderUserMgmtList();
+ var name = document.getElementById('cuName').value.trim();
+ var username = document.getElementById('cuUsername').value.trim();
+ var password = document.getElementById('cuPassword').value;
+ var role = document.getElementById('cuRole').value;
+ var err = document.getElementById('createUserError');
+ if(!name || !username) { err.textContent = 'Full name and username are required.'; err.style.display = 'block'; return; }
+ if(editingUserIndex === -1 && !password) { err.textContent = 'Password is required for new users.'; err.style.display = 'block'; return; }
+ var dupIdx = USERS.findIndex(function(u, i){ return u.username === username && i !== editingUserIndex; });
+ if(dupIdx !== -1) { err.textContent = 'Username already exists. Please choose another.'; err.style.display = 'block'; return; }
+ if(editingUserIndex === -1) {
+  USERS.push({ username:username, password:password, role:role, display:name, avatar:null, subjects:[] });
+ } else {
+  USERS[editingUserIndex].display = name;
+  USERS[editingUserIndex].username = username;
+  USERS[editingUserIndex].role = role;
+  if(password) USERS[editingUserIndex].password = password;
+ }
+ closeCreateUser();
+ renderUserMgmtList();
 }
 function deleteUser(idx) {
-  const u = USERS[idx];
-  if(!confirm('Delete user "' + u.display + '" (' + u.username + ')? This cannot be undone.')) return;
-  USERS.splice(idx, 1);
-  renderUserMgmtList();
+ var u = USERS[idx];
+ if(!confirm('Delete user "' + u.display + '" (' + u.username + ')? This cannot be undone.')) return;
+ USERS.splice(idx, 1);
+ renderUserMgmtList();
 }
-
 </script>
 </body>
 </html>
