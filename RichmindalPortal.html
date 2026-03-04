@@ -74,29 +74,6 @@ body {
  position: relative;
  background-color: #2a1a00;
  background-image:
- /* Diagonal ribbon bands */
- repeating-linear-gradient(
- 135deg,
- transparent 0px,
- transparent 38px,
- rgba(212, 160, 23, 0.18) 38px,
- rgba(212, 160, 23, 0.18) 54px,
- transparent 54px,
- transparent 90px,
- rgba(180, 120, 10, 0.12) 90px,
- rgba(180, 120, 10, 0.12) 100px
- ),
- /* Cross ribbon bands */
- repeating-linear-gradient(
- 45deg,
- transparent 0px,
- transparent 60px,
- rgba(255, 200, 50, 0.08) 60px,
- rgba(255, 200, 50, 0.08) 74px,
- transparent 74px,
- transparent 120px
- ),
- /* Deep gold base gradient */
  linear-gradient(160deg,
  #f5e27a 0%,
  #d4a017 10%,
@@ -1000,14 +977,7 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
 
  <!-- Notification Bar -->
- <div class="notif-bar" onclick="navigate('payments')">
- <div class="notif-bar-icon"></div>
- <div class="notif-bar-content">
- <div class="notif-bar-title">Pending Balance</div>
- <div class="notif-bar-sub">You have an outstanding balance of ₱12,500.00 — due February 28, 2026</div>
- </div>
- <div class="notif-bar-cta">View Details →</div>
- </div>
+
 
  <!-- Stats Grid — rendered by renderDashboard() -->
  <div id="dashboardStats" class="stats-grid"></div>
@@ -2169,8 +2139,7 @@ function renderDashboard(role) {
  // Pending Payments — admin & registrar only
  statsHTML += `
  <div class="stat-card clickable" onclick="navigate('payments')">
- <div class="stat-icon"></div>
- <div class="stat-label">Pending Payments</div>
+ <div class="stat-label">Pending Payments of Students</div>
  <div class="stat-value" style="color:var(--warning)">₱ 84K</div>
  <div class="stat-sub">Across 47 students</div>
  </div>`;
@@ -2204,20 +2173,6 @@ function renderDashboard(role) {
  <div class="stat-label">My GWA</div>
  <div class="stat-value" style="color:var(--gold)">${myGwa}</div>
  <div class="stat-sub">Current semester</div>
- </div>`;
- } else if (!isProf) {
- statsHTML += `
- <div class="stat-card">
- <div class="stat-icon"></div>
- <div class="stat-label">Units Taken (Avg)</div>
- <div class="stat-value" style="color:var(--success)">21</div>
- <div class="stat-sub">Per student this sem</div>
- </div>
- <div class="stat-card">
- <div class="stat-icon"></div>
- <div class="stat-label">GWA Average</div>
- <div class="stat-value" style="color:var(--gold)">1.78</div>
- <div class="stat-sub">School-wide</div>
  </div>`;
  }
  statsEl.innerHTML = statsHTML;
@@ -2608,33 +2563,43 @@ function viewStudentById(id) {
    return;
   }
  }
- const gwa = computeGWA(s.subjects);
- const honor = getLatinHonor(gwa);
- const fail = hasFailure(s.subjects);
- document.getElementById('mName').textContent = s.name + ' — ' + s.course;
- document.getElementById('mId').textContent = s.id;
+ var gwa = computeGWA(s.subjects);
+ var honor = getLatinHonor(gwa);
+ var fail = hasFailure(s.subjects);
+ var totalUnits = s.subjects.reduce(function(a,b){return a+b.units;},0);
+ document.getElementById('mName').textContent = s.name;
+ document.getElementById('mMeta').textContent = s.id + ' · ' + s.section;
+ document.getElementById('mCourse').textContent = s.course;
  document.getElementById('mYear').textContent = s.year;
- document.getElementById('mSection').textContent = s.section;
- document.getElementById('mSem').textContent = '1st Semester · 2024–2025';
+ document.getElementById('mSem').textContent = '1st Semester · 2025–2026';
+ document.getElementById('mSY').textContent = 'A.Y. 2025–2026';
  document.getElementById('mGwa').textContent = gwa;
- document.getElementById('mSY').textContent = '2024–2025';
- const ms = document.getElementById('mStatus');
- if(ms) ms.innerHTML = fail ? '<span style="color:#991b1b;"> Has Failing Grade</span>' : (honor ? `<span class="latin-honor-badge"> ${honor}</span>` : '<span style="color:#166534;"> Passed</span>');
- const av = document.getElementById('mAvatar');
- if(av) av.style.background = s.color;
- const mai = document.getElementById('mAvatarInitials');
- if(mai) mai.textContent = initials(s.name);
- const msub = document.getElementById('mSubjects');
- if(msub) msub.innerHTML = s.subjects.map(sub => {
- const gf = parseFloat(sub.grade) > 3.0;
- return `<tr>
- <td><span class="subject-link" onclick="alert('Opening Moodle for ${sub.code}...')">${sub.code}</span></td>
- <td>${sub.desc}</td>
- <td>${sub.units}</td>
- <td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:${gf?'#991b1b':'#166534'}">${sub.grade}</td>
- <td><span class="badge ${gf?'badge-fail':'badge-pass'}">${gf?'Failed':'Passed'}</span></td>
- </tr>`;
- }).join('');
+ var ms = document.getElementById('mStatus');
+ if(ms) ms.innerHTML = fail ? '<span style="color:#991b1b;">Has Failing Grade</span>' : (honor ? '<span class="latin-honor-badge">' + honor + '</span>' : '<span style="color:#166534;">Passed</span>');
+ var av = document.getElementById('mAvatar');
+ if(av) { av.style.background = s.color; av.textContent = initials(s.name); }
+ var msub = document.getElementById('mSubjects');
+ if(msub) {
+  var rows = '';
+  for(var i=0;i<s.subjects.length;i++){
+   var sub = s.subjects[i];
+   var gf = parseFloat(sub.grade) > 3.0;
+   var gc = gf ? '#991b1b' : (parseFloat(sub.grade)<=1.5 ? '#166534' : '#92400e');
+   rows += '<tr style="border-bottom:1px solid rgba(0,0,0,0.05);">'
+    + '<td style="padding:10px 14px;font-weight:600;color:#1d4ed8;">' + sub.code + '</td>'
+    + '<td style="padding:10px 14px;">' + sub.desc + '</td>'
+    + '<td style="padding:10px 14px;text-align:center;">' + sub.units + '</td>'
+    + '<td style="padding:10px 14px;font-family:\'JetBrains Mono\',monospace;font-weight:700;color:' + gc + ';">' + sub.grade + '</td>'
+    + '<td style="padding:10px 14px;"><span class="badge ' + (gf?'badge-fail':'badge-pass') + '">' + (gf?'Failed':'Passed') + '</span></td>'
+    + '</tr>';
+  }
+  rows += '<tr style="background:rgba(0,0,0,0.03);font-weight:700;">'
+   + '<td colspan="2" style="padding:10px 14px;">Total</td>'
+   + '<td style="padding:10px 14px;text-align:center;">' + totalUnits + ' units</td>'
+   + '<td colspan="2" style="padding:10px 14px;font-family:\'JetBrains Mono\',monospace;color:var(--gold);">GWA: ' + gwa + '</td>'
+   + '</tr>';
+  msub.innerHTML = rows;
+ }
  document.getElementById('studentModal').classList.add('open');
 }
 
