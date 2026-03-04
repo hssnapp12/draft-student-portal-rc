@@ -1217,68 +1217,20 @@ tbody tr:last-child td { border-bottom:none; }
  <!-- CHATS -->
  <div class="page" id="page-chats">
  <div class="page-header">
- <h1> Chats</h1>
+ <h1>Chats</h1>
  <p>Message professors and classmates directly</p>
  </div>
  <div class="chat-layout">
  <div class="chat-list">
- <div class="chat-list-header"> Messages</div>
- <div class="chat-list-item active">
- <div style="position:relative;">
- <div class="mini-avatar" style="background:linear-gradient(135deg,#3b82f6,#93c5fd);">PD</div>
- <div class="chat-status online" style="position:absolute;bottom:0;right:0;border-color:var(--navy2);"></div>
- </div>
- <div style="flex:1;min-width:0;">
- <div class="chat-li-name">Prof. Dela Cruz</div>
- <div class="chat-li-preview">Please submit by Friday!</div>
- </div>
- </div>
- <div class="chat-list-item">
- <div style="position:relative;">
- <div class="mini-avatar" style="background:linear-gradient(135deg,#10b981,#6ee7b7);">MS</div>
- <div class="chat-status offline" style="position:absolute;bottom:0;right:0;border-color:var(--navy2);"></div>
- </div>
- <div style="flex:1;min-width:0;">
- <div class="chat-li-name">Maria Santos</div>
- <div class="chat-li-preview">Study group later?</div>
- </div>
- </div>
- <div class="chat-list-item">
- <div style="position:relative;">
- <div class="mini-avatar" style="background:linear-gradient(135deg,#f59e0b,#fcd34d);">RG</div>
- <div class="chat-status online" style="position:absolute;bottom:0;right:0;border-color:var(--navy2);"></div>
- </div>
- <div style="flex:1;min-width:0;">
- <div class="chat-li-name">Registrar Office</div>
- <div class="chat-li-preview">Your document is ready</div>
- </div>
- </div>
+ <div class="chat-list-header">Messages</div>
+ <div id="chatList"></div>
  </div>
  <div class="chat-window">
- <div class="chat-window-header">
- <div class="mini-avatar" style="background:linear-gradient(135deg,#3b82f6,#93c5fd);">PD</div>
- <div>
- <div style="font-weight:600;font-size:14px;">Prof. Dela Cruz</div>
- <div style="font-size:12px;color:var(--success);">🟢 Online now</div>
- </div>
- </div>
- <div class="chat-messages">
- <div class="chat-msg">
- <div class="mini-avatar" style="background:linear-gradient(135deg,#3b82f6,#93c5fd);width:30px;height:30px;font-size:11px;">PD</div>
- <div class="chat-bubble">Good morning! Don't forget to submit your assignment by Friday 11:59 PM.</div>
- </div>
- <div class="chat-msg own">
- <div class="mini-avatar" style="background:linear-gradient(135deg,var(--blue),var(--gold));width:30px;height:30px;font-size:11px;">A</div>
- <div class="chat-bubble">Good morning, Prof! Noted, I'll submit before the deadline. </div>
- </div>
- <div class="chat-msg">
- <div class="mini-avatar" style="background:linear-gradient(135deg,#3b82f6,#93c5fd);width:30px;height:30px;font-size:11px;">PD</div>
- <div class="chat-bubble">Great! If you have questions about the requirements, please message me here.</div>
- </div>
- </div>
+ <div class="chat-window-header" id="chatWindowHeader"></div>
+ <div class="chat-messages" id="chatMessages"></div>
  <div class="chat-input-row">
- <input type="text" placeholder="Type a message... (tag @someone)" id="chatInput" onkeydown="if(event.key==='Enter')sendChatMsg()">
- <button class="chat-send-btn" onclick="sendChatMsg()"></button>
+ <input type="text" placeholder="Type a message..." id="chatInput" onkeydown="if(event.key==='Enter')sendChatMsg()">
+ <button class="chat-send-btn" onclick="sendChatMsg()">&#10148;</button>
  </div>
  </div>
  </div>
@@ -1483,7 +1435,7 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  <div class="profile-card">
  <div class="profile-avatar-wrap">
- <div class="profile-avatar" id="profileAvatar" onclick="document.getElementById('profileAvatarFile').click()">
+ <div class="profile-avatar" id="profileAvatar">
  <span id="profileAvatarInitials">A</span>
  <div class="upload-overlay"></div>
  </div>
@@ -2004,7 +1956,13 @@ function doLogin() {
  if(pm) pm.textContent = found.username + ' · Richmindale College';
  if(prt) prt.textContent = found.role;
  if(pai) pai.textContent = initials(found.display);
- if(pav && found.avatar) pav.innerHTML = `<img src="${found.avatar}" alt="avatar"><div class="upload-overlay"></div>`;
+ if(pav && found.avatar) { pav.innerHTML = '<img src="' + found.avatar + '" alt="avatar"><div class="upload-overlay"></div>'; }
+ else if(pav) { pav.innerHTML = '<span id="profileAvatarInitials">' + initials(found.display) + '</span><div class="upload-overlay"></div>'; }
+ // Only allow avatar upload for the currently logged-in user on their own profile
+ if(pav) {
+  pav.style.cursor = 'pointer';
+  pav.onclick = function() { document.getElementById('profileAvatarFile').click(); };
+ }
  const isAdmin = found.role === 'Administrator';
  // Role-based UI adjustments
  const isProf = found.role === 'Professor';
@@ -2077,6 +2035,10 @@ function doLogin() {
 
 function doLogout() {
  closeModal('signoutModal');
+ // Remove avatar upload permission on logout
+ var pav = document.getElementById('profileAvatar');
+ if(pav) { pav.onclick = null; pav.style.cursor = 'default'; }
+ currentUser = null;
  document.getElementById('mainApp').style.display = 'none';
  document.getElementById('loginPage').style.display = 'flex';
  document.getElementById('loginUser').value = '';
@@ -3185,49 +3147,88 @@ function deleteCalEvent(id) {
  CHAT
  */
 const CHATS = [
- { id:1, name:'Prof. Jose Dela Cruz', role:'Professor', online:true, msgs:[{own:false,text:'Good morning! Please submit your progress report by tonight.'},{own:true,text:'Yes, prof! Will submit before 11PM. Thank you!'}] },
- { id:2, name:'Maria Santos', role:'Student', online:false, msgs:[{own:false,text:'Kamusta yung notes mo sa IT203?'},{own:true,text:'Okay naman! Pwede kitang tulungan bukas.'}] },
- { id:3, name:'Registrar Office', role:'Registrar', online:true, msgs:[{own:false,text:'Your TOR request is ready for pickup at the Registrar\'s Office.'},{own:true,text:'Thank you! Will pick it up tomorrow morning.'}] },
+ { id:1, name:'Prof. Ann Gloghienette Perez', role:'Professor', color:'#1d4ed8', online:true, msgs:[
+  {own:false, text:'Good morning! Please submit your progress report by tonight.'},
+  {own:true,  text:'Yes, prof! Will submit before 11PM. Thank you!'},
+  {own:false, text:'Great! If you have questions about the requirements, please message me here.'}
+ ]},
+ { id:2, name:'Prof. Rhona Joy Tanghian', role:'Professor', color:'#7c3aed', online:false, msgs:[
+  {own:false, text:'Reminder: IT301 quiz on Friday. Review chapters 4-6.'},
+  {own:true,  text:'Noted po! Will review tonight.'}
+ ]},
+ { id:3, name:'Maria Santos', role:'Student', color:'#10b981', online:false, msgs:[
+  {own:false, text:'Kamusta yung notes mo sa IT203?'},
+  {own:true,  text:'Okay naman! Pwede kitang tulungan bukas.'}
+ ]},
+ { id:4, name:'Registrar Office', role:'Registrar', color:'#f59e0b', online:true, msgs:[
+  {own:false, text:'Your TOR request is ready for pickup at the Registrar Office.'},
+  {own:true,  text:'Thank you! Will pick it up tomorrow morning.'}
+ ]},
 ];
-let activeChat = 1;
+var activeChat = 1;
 
 function renderChatList() {
- const el = document.getElementById('chatList');
+ var el = document.getElementById('chatList');
  if(!el) return;
- el.innerHTML = CHATS.map(c => `
- <div class="chat-list-item ${c.id===activeChat?'active':''}" onclick="selectChat(${c.id})">
- <div style="position:relative;">
- <div class="mini-avatar" style="width:36px;height:36px;background:linear-gradient(135deg,#c1121f,#8d0020);">${initials(c.name)}</div>
- <div class="chat-status ${c.online?'online':'offline'}" style="position:absolute;bottom:1px;right:1px;"></div>
- </div>
- <div style="flex:1;min-width:0;">
- <div class="chat-li-name">${c.name}</div>
- <div class="chat-li-preview">${c.msgs[c.msgs.length-1]?.text||''}</div>
- </div>
- </div>
- `).join('');
+ var html = '';
+ for(var i=0;i<CHATS.length;i++){
+  var c = CHATS[i];
+  var lastMsg = c.msgs.length ? c.msgs[c.msgs.length-1].text : '';
+  if(lastMsg.length > 38) lastMsg = lastMsg.slice(0,35) + '...';
+  html += '<div class="chat-list-item ' + (c.id===activeChat?'active':'') + '" onclick="selectChat(' + c.id + ')" style="cursor:pointer;">';
+  html += '<div style="position:relative;flex-shrink:0;">';
+  html += '<div class="mini-avatar" style="width:38px;height:38px;background:' + c.color + ';font-size:13px;">' + initials(c.name) + '</div>';
+  html += '<div class="chat-status ' + (c.online?'online':'offline') + '" style="position:absolute;bottom:1px;right:1px;"></div>';
+  html += '</div>';
+  html += '<div style="flex:1;min-width:0;">';
+  html += '<div class="chat-li-name">' + c.name + '</div>';
+  html += '<div class="chat-li-preview">' + lastMsg + '</div>';
+  html += '</div></div>';
+ }
+ el.innerHTML = html;
 }
 
 function selectChat(id) {
  activeChat = id;
  renderChatList();
- const chat = CHATS.find(c => c.id === id);
+ var chat = CHATS.find(function(c){ return c.id === id; });
  if(!chat) return;
- const hw = document.getElementById('chatWindowHeader');
- if(hw) hw.innerHTML = `<div class="mini-avatar" style="width:36px;height:36px;background:linear-gradient(135deg,#c1121f,#8d0020);">${initials(chat.name)}</div><div><div style="font-weight:700;font-size:14px;color:#1a1a2e;">${chat.name}</div><div style="font-size:12px;color:${chat.online?'#166534':'#9ca3af'};">${chat.online?'🟢 Online':' Offline'}</div></div>`;
- const msgs = document.getElementById('chatMessages');
- if(msgs) { msgs.innerHTML = chat.msgs.map(m => `<div class="chat-msg ${m.own?'own':''}"><div class="mini-avatar" style="width:30px;height:30px;background:${m.own?'#c1121f':'#6b7280'};font-size:11px;">${m.own?(currentUser?initials(currentUser.display):'Me'):'RC'}</div><div class="chat-bubble">${m.text}</div></div>`).join(''); msgs.scrollTop = msgs.scrollHeight; }
+ var hw = document.getElementById('chatWindowHeader');
+ if(hw) {
+  hw.innerHTML = '<div class="mini-avatar" style="width:38px;height:38px;background:' + chat.color + ';font-size:14px;">' + initials(chat.name) + '</div>'
+   + '<div><div style="font-weight:700;font-size:14px;color:#1a1a2e;">' + chat.name + '</div>'
+   + '<div style="font-size:12px;color:' + (chat.online?'#166534':'#9ca3af') + ';">' + (chat.online?'&#128994; Online now':'Offline') + '</div></div>';
+ }
+ var msgs = document.getElementById('chatMessages');
+ if(msgs) {
+  var html = '';
+  var myInitials = currentUser ? initials(currentUser.display) : 'Me';
+  for(var i=0;i<chat.msgs.length;i++){
+   var m = chat.msgs[i];
+   html += '<div class="chat-msg ' + (m.own?'own':'') + '">';
+   html += '<div class="mini-avatar" style="width:30px;height:30px;background:' + (m.own?'#c1121f':chat.color) + ';font-size:11px;">';
+   html += m.own ? myInitials : initials(chat.name);
+   html += '</div>';
+   html += '<div class="chat-bubble">' + m.text + '</div>';
+   html += '</div>';
+  }
+  msgs.innerHTML = html;
+  msgs.scrollTop = msgs.scrollHeight;
+ }
 }
 
 function sendChatMsg() {
- const inp = document.getElementById('chatInput');
+ var inp = document.getElementById('chatInput');
  if(!inp || !inp.value.trim()) return;
- const chat = CHATS.find(c => c.id === activeChat);
+ var chat = CHATS.find(function(c){ return c.id === activeChat; });
  if(!chat) return;
  chat.msgs.push({ own:true, text: inp.value.trim() });
  inp.value = '';
  selectChat(activeChat);
- setTimeout(() => { chat.msgs.push({ own:false, text:'Thanks for your message! I\'ll get back to you shortly.' }); selectChat(activeChat); }, 1200);
+ setTimeout(function() {
+  chat.msgs.push({ own:false, text:'Got it! I will get back to you shortly.' });
+  selectChat(activeChat);
+ }, 1200);
 }
 
 /* 
@@ -3819,15 +3820,27 @@ function filterGradeStudent(id, btn) {
  PROFILE AVATAR UPDATE
  */
 function updateProfileAvatar(input) {
- const file = input.files[0];
+ if(!currentUser) return;
+ var file = input.files[0];
  if(!file) return;
- const reader = new FileReader();
- reader.onload = e => {
- const el = document.getElementById('profileAvatar');
- if(el) { el.innerHTML = `<img src="${e.target.result}" alt="avatar"><div class="upload-overlay"></div>`; el.onclick = () => document.getElementById('profileAvatarFile').click(); }
- const nav = document.getElementById('navAvatar');
- if(nav) nav.innerHTML = `<img src="${e.target.result}" alt="avatar">`;
- if(currentUser) currentUser.avatar = e.target.result;
+ if(!file.type.match(/image\/(jpeg|jpg)/)) {
+  alert('Only JPG/JPEG files are allowed.');
+  input.value = '';
+  return;
+ }
+ var reader = new FileReader();
+ reader.onload = function(e) {
+  var dataUrl = e.target.result;
+  currentUser.avatar = dataUrl;
+  var userInList = USERS.find(function(u){ return u.username === currentUser.username; });
+  if(userInList) userInList.avatar = dataUrl;
+  var el = document.getElementById('profileAvatar');
+  if(el) {
+   el.innerHTML = '<img src="' + dataUrl + '" alt="avatar"><div class="upload-overlay"></div>';
+   el.onclick = function(){ document.getElementById('profileAvatarFile').click(); };
+  }
+  var nav = document.getElementById('navAvatar');
+  if(nav) nav.innerHTML = '<img src="' + dataUrl + '" alt="avatar">';
  };
  reader.readAsDataURL(file);
 }
