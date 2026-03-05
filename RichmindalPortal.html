@@ -12,17 +12,24 @@ body.font-large { font-size: 17px !important; }
 body.font-large * { font-size: inherit; }
 
 :root {
- /* Richmindale Brand Palette */
- --primary-yellow: #FFC107;
- --primary-dark: #2C2C2C;
- --secondary-dark: #1A1A1A;
- --accent-gold: #FFD54F;
- --text-light: #FFFFFF;
- --text-dark: #333333;
- --border-gray: #E0E0E0;
- --bg-light: #F5F5F5;
- --hover-yellow: #FFB300;
- --nav-gradient: linear-gradient(90deg, var(--primary-yellow) 0%, var(--accent-gold) 40%, var(--hover-yellow) 100%);
+  /* Color Palette - Richmindale Brand */
+  --primary-yellow: #FFC107;
+  --primary-dark: #2C2C2C;
+  --secondary-dark: #1A1A1A;
+  --accent-gold: #FFD54F;
+  --text-light: #FFFFFF;
+  --text-dark: #333333;
+  --border-gray: #E0E0E0;
+  --bg-light: #F5F5F5;
+  --hover-yellow: #FFB300;
+  /* Gradients */
+  --nav-gradient: linear-gradient(
+    90deg,
+    #FFB300 0%,
+    #FFC107 35%,
+    #FFD54F 65%,
+    #FFE082 100%
+  );
 
  /* Mapped semantic aliases */
  --blue: #2C2C2C; --blue-light: #3a3a3a;
@@ -85,18 +92,18 @@ body {
  overflow-x: hidden;
  color: var(--text);
  position: relative;
- background-color: #0a0a0a;
+ background-color: #ffffff;
  background-image:
  linear-gradient(160deg,
- #0a0a0a 0%,
- #111111 20%,
- #1a1a0a 40%,
- #2a2200 55%,
+ #ffffff 0%,
+ #fffde7 12%,
+ #FFC107 35%,
+ #6b5500 55%,
  #3d3200 65%,
- #6b5500 75%,
- #FFC107 88%,
- #FFD54F 95%,
- #FFC107 100%
+ #2a2200 75%,
+ #1a1a0a 85%,
+ #111111 93%,
+ #0a0a0a 100%
  );
  background-attachment: fixed;
 }
@@ -129,7 +136,7 @@ body::after {
  min-height: 100vh; padding: 24px;
 }
 .login-box {
- background: rgba(255,255,255,0.9);
+ background: rgba(255,255,255,0.55);
  border: 1px solid rgba(255,255,255,0.95);
  backdrop-filter: blur(20px);
  border-radius: 22px;
@@ -154,7 +161,7 @@ body::after {
 }
 .rc-logo-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 .login-school-name { font-family: 'DM Serif Display', serif; font-size: 22px; text-align: center; color: #1A1A1A; }
-.login-school-sub { font-size: 11px; color: #FFC107; text-transform: uppercase; letter-spacing: 2px; text-align: center; font-weight: 700; }
+.login-school-sub { font-size: 11px; color: #000000; text-transform: uppercase; letter-spacing: 2px; text-align: center; font-weight: 700; }
 
 .login-tabs { display:flex; gap:0; margin-bottom:20px; background:rgba(0,0,0,0.06); border-radius:10px; padding:4px; }
 .login-tab {
@@ -227,7 +234,7 @@ body::after {
 .dept-reveal.show { display:block; animation:fadeIn 0.25s ease; }
 
 /* Primary button */
-.btn-primary { width:100%; padding:13px; background:var(--nav-gradient); border:none; border-radius:10px; color:#1A1A1A; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all 0.2s; box-shadow:0 4px 18px rgba(255,193,7,0.35); letter-spacing:0.2px; }
+.btn-primary { width:100%; padding:13px; background:linear-gradient(135deg, #FFD54F 0%, #FFC107 40%, #FFB300 75%, #FF8F00 100%); border:none; border-radius:10px; color:#1A1A1A; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all 0.2s; box-shadow:0 4px 18px rgba(255,193,7,0.35); letter-spacing:0.2px; }
 .btn-primary:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(255,193,7,0.45); }
 .btn-primary:active { transform:translateY(0); }
 
@@ -235,17 +242,17 @@ body::after {
 #mainApp { display:none; position:relative; z-index:1; min-height:100vh; }
 
 /* TOPNAV */
-.topnav { height:var(--topnav-h); background:var(--nav-gradient); border-bottom:1px solid rgba(255,193,7,0.3); backdrop-filter:blur(18px); display:flex; align-items:center; justify-content:space-between; padding:0 22px; position:sticky; top:0; z-index:200; box-shadow:0 2px 14px rgba(0,0,0,0.08); }
+.topnav { height:var(--topnav-h); background:#2d2d2d; border-bottom:1px solid rgba(255,193,7,0.3); display:flex; align-items:center; justify-content:space-between; padding:0 22px; position:sticky; top:0; z-index:200; box-shadow:0 2px 14px rgba(0,0,0,0.08); }
 .topnav-left { display:flex; align-items:center; gap:12px; }
 .rc-logo-small { width:38px; height:38px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 2px rgba(255,193,7,0.3); flex-shrink:0; overflow:hidden; }
 .rc-logo-small img { width:36px; height:36px; object-fit:cover; border-radius:50%; }
-.topnav-brand-txt { font-family:'DM Serif Display',serif; font-size:15px; color:#1A1A1A; line-height:1.1; font-weight:700; }
-.topnav-brand-txt small { display:block; font-family:'DM Sans',sans-serif; font-size:10px; color:#FF8F00; letter-spacing:1.5px; text-transform:uppercase; font-weight:700; }
-.topnav-right { display:flex; align-items:center; gap:10px; }
+.topnav-brand-txt { font-family:'DM Serif Display',serif; font-size:15px; color:#FFC107; line-height:1.1; font-weight:700; }
+.topnav-brand-txt small { display:block; font-family:'DM Sans',sans-serif; font-size:10px; color:#FFD54F; letter-spacing:1.5px; text-transform:uppercase; font-weight:700; }
+.topnav-right { display:flex; align-items:center; gap:10px; background:#2d2d2d; }
 
 /* Notif bell */
-.notif-btn { position:relative; background:rgba(255,255,255,0.75); border:1px solid rgba(0,0,0,0.12); border-radius:10px; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; transition:all 0.2s; }
-.notif-btn:hover { background:#fff; }
+.notif-btn { position:relative; background:#4b5563; border:1px solid #4b5563; border-radius:10px; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; transition:all 0.2s; }
+.notif-btn:hover { background:#6b7280; }
 .notif-badge { position:absolute; top:4px; right:4px; width:16px; height:16px; border-radius:50%; background:#2C2C2C; font-size:9px; font-weight:700; display:flex; align-items:center; justify-content:center; border:2px solid #FFC107; color:#FFC107; }
 .notif-dropdown { position:absolute; top:calc(100%+8px); right:0; width:340px; background:rgba(255,255,255,0.97); border:1px solid rgba(0,0,0,0.1); border-radius:14px; box-shadow:0 16px 48px rgba(0,0,0,0.18); display:none; z-index:999; overflow:hidden; }
 .notif-dropdown.open { display:block; animation:fadeDown 0.2s ease; }
@@ -260,27 +267,30 @@ body::after {
 .notif-item.type-event .notif-item-title { color:#2C2C2C; }
 .notif-item.type-grade .notif-item-title { color:#166534; }
 
-.user-chip { display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.75); border:1px solid rgba(0,0,0,0.12); border-radius:40px; padding:5px 13px 5px 5px; cursor:pointer; transition:all 0.2s; }
-.user-chip:hover { background:#fff; }
-.user-avatar { width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg,#FFC107,#FFB300); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; overflow:hidden; flex-shrink:0; color:#fff; }
+.user-chip { display:flex; align-items:center; gap:10px; background:#4b5563; border:1px solid #4b5563; border-radius:40px; padding:5px 13px 5px 5px; cursor:pointer; transition:all 0.2s; }
+.user-chip:hover { background:#6b7280; }
+.user-avatar { width:34px; height:34px; border-radius:50%; background:transparent; border:2px solid #FFC107; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; overflow:hidden; flex-shrink:0; color:#FFC107; }
 .user-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
-.user-name { font-size:13px; font-weight:700; color:#1A1A1A; }
-.user-role { font-size:10px; color:#FF8F00; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
-.last-active { font-size:10px; color:#9ca3af; }
+.user-name { font-size:13px; font-weight:700; color:#FFC107; }
+.user-role { font-size:10px; color:#FFD54F; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+.last-active { font-size:10px; color:#FFE082; }
 
 /* SIDEBAR */
 .app-layout { display:flex; }
-.sidebar { width:var(--sidebar-w); min-height:calc(100vh - var(--topnav-h)); background:rgba(28,28,28,0.97); border-right:1px solid rgba(0,0,0,0.1); padding:18px 10px; position:sticky; top:var(--topnav-h); height:calc(100vh - var(--topnav-h)); overflow-y:auto; display:flex; flex-direction:column; box-shadow:2px 0 10px rgba(0,0,0,0.06); }
+.sidebar { width:var(--sidebar-w); min-height:calc(100vh - var(--topnav-h)); background:#ffffff; border-right:1px solid rgba(0,0,0,0.1); padding:18px 10px; position:sticky; top:var(--topnav-h); height:calc(100vh - var(--topnav-h)); overflow-y:auto; display:flex; flex-direction:column; box-shadow:2px 0 10px rgba(0,0,0,0.06); }
 .sidebar::-webkit-scrollbar { width:3px; }
 .sidebar::-webkit-scrollbar-thumb { background:rgba(0,0,0,0.1); border-radius:4px; }
-.sidebar-section { font-size:10px; font-weight:800; color:#FFB300; text-transform:uppercase; letter-spacing:1.2px; padding:0 10px; margin:16px 0 5px; }
+::-webkit-scrollbar { width:8px; background:#2d2d2d; }
+::-webkit-scrollbar-thumb { background:#4b5563; border-radius:4px; }
+::-webkit-scrollbar-track { background:#2d2d2d; }
+.sidebar-section { font-size:10px; font-weight:800; color:#1d4ed8; text-transform:uppercase; letter-spacing:1.2px; padding:0 10px; margin:16px 0 5px; }
 .sidebar-section:first-child { margin-top:0; }
-.nav-item { display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:10px; color:#E0E0E0; font-size:13.5px; font-weight:500; cursor:pointer; transition:all 0.15s; margin-bottom:2px; border:1.5px solid transparent; user-select:none; }
+.nav-item { display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:10px; color:#1A1A1A; font-size:13.5px; font-weight:500; cursor:pointer; transition:all 0.15s; margin-bottom:2px; border:1.5px solid transparent; user-select:none; }
 .nav-item:hover { background:rgba(255,193,7,0.18); color:#1A1A1A; }
 .nav-item.active { background:rgba(255,193,7,0.22); border-color:rgba(255,193,7,0.55); color:#1A1A1A; font-weight:700; }
 .nav-icon { font-size:16px; width:20px; text-align:center; flex-shrink:0; }
 .nav-badge { margin-left:auto; background:#FFC107; color:#1A1A1A; font-size:9px; font-weight:700; padding:2px 6px; border-radius:10px; }
-.sidebar-footer { margin-top:auto; padding-top:14px; border-top:1px solid rgba(255,193,7,0.2); }
+.sidebar-footer { margin-top:auto; padding-top:14px; border-top:1px solid rgba(0,0,0,0.1); }
 
 /* CONTENT */
 .content { flex:1; padding:30px 34px; min-width:0; background:rgba(255,255,255,0.06); }
@@ -293,9 +303,9 @@ body::after {
 
 /* Welcome */
 .welcome-header { margin-bottom:24px; }
-.welcome-header .welcome-text { font-family:'DM Serif Display',serif; font-size:26px; color:#fff; text-shadow:0 1px 6px rgba(0,0,0,0.5); }
-.welcome-header .welcome-text span { color:#FFC107; }
-.welcome-header .welcome-sub { color:#FFD54F; font-size:13px; margin-top:4px; }
+.welcome-header .welcome-text { font-family:'DM Serif Display',serif; font-size:26px; color:#1A1A1A; text-shadow:none; }
+.welcome-header .welcome-text span { color:#1d4ed8; }
+.welcome-header .welcome-sub { color:#1A1A1A; font-size:13px; margin-top:4px; }
 
 /* NOTIFICATION BAR */
 .notif-bar { background:rgba(255,255,255,0.82); border:1.5px solid rgba(255,193,7,0.25); border-radius:12px; padding:12px 18px; display:flex; align-items:center; gap:12px; margin-bottom:22px; cursor:pointer; transition:all 0.2s; box-shadow:0 2px 8px rgba(255,193,7,0.08); }
@@ -558,13 +568,13 @@ tbody tr:last-child td { border-bottom:none; }
 /* CHAT */
 .chat-layout-OLD-REMOVED { display:flex; gap:18px; height:calc(100vh - 200px); min-height:400px; }
 /* ====== ENHANCED CHAT SYSTEM ====== */
-.chat-layout { display:flex; gap:14px; height:calc(100vh - 200px); min-height:520px; }
+.chat-layout { display:flex; gap:14px; height:calc(100vh - 160px); min-height:520px; }
 .chat-list { width:260px; background:rgba(255,255,255,0.93); border:1px solid rgba(0,0,0,0.09); border-radius:16px; overflow:hidden; flex-shrink:0; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:flex; flex-direction:column; }
 .chat-list-header { padding:14px 15px 10px; border-bottom:1px solid rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:space-between; background:#fff; }
 .chat-list-header-title { font-weight:800; font-size:14px; color:#1A1A1A; }
 .chat-list-search { padding:8px 12px; border-bottom:1px solid rgba(0,0,0,0.06); }
 .chat-list-search input { width:100%; background:rgba(0,0,0,0.05); border:none; border-radius:8px; padding:7px 10px; font-family:'DM Sans',sans-serif; font-size:12px; color:#1A1A1A; outline:none; }
-.chat-list-scroll { flex:1; overflow-y:auto; }
+.chat-list-scroll { flex:1; overflow-y:auto; min-height:0; max-height:100%; }
 .chat-list-item { padding:11px 14px; cursor:pointer; transition:background 0.15s; border-bottom:1px solid rgba(0,0,0,0.05); display:flex; align-items:center; gap:10px; position:relative; }
 .chat-list-item:hover { background:rgba(255,193,7,0.07); }
 .chat-list-item.active { background:linear-gradient(90deg,rgba(255,193,7,0.15),rgba(255,193,7,0.05)); border-left:3px solid #FFC107; }
@@ -737,9 +747,6 @@ tbody tr:last-child td { border-bottom:none; }
  </div>
  </div>
 
- <div class="login-tabs">
- <button class="login-tab active" onclick="showLoginTab('login',this)"> Sign In</button>
- </div>
 
  <!-- SIGN IN FORM -->
  <div id="loginFields">
@@ -766,7 +773,7 @@ tbody tr:last-child td { border-bottom:none; }
  <div class="error-msg" id="errorMsg"> Invalid credentials. Please try again.</div>
 
  <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(0,0,0,0.08);text-align:center;">
-  <button onclick="showAdminLogin()" style="background:#000000;color:#FFC107;border:2px solid #000;border-radius:8px;padding:9px 22px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;width:100%;letter-spacing:0.3px;">Login as Admin</button>
+  <button onclick="showAdminLogin()" style="background:#6b7280;color:#ffffff;border:none;border-radius:8px;padding:9px 22px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;width:100%;letter-spacing:0.3px;">Login as Admin</button>
  </div>
 
 
@@ -1510,8 +1517,8 @@ tbody tr:last-child td { border-bottom:none; }
  <button class="btn-action">Update</button>
  </div>
  <div class="setting-row">
- <div><div class="setting-label">Emergency Contact</div><div class="setting-sub">Maria Dela Cruz · 09XX-XXX-XXXX</div></div>
- <button class="btn-action">Edit</button>
+ <div><div class="setting-label">Emergency Contact</div><div class="setting-sub" id="emergencyContactDisplay">Maria Dela Cruz · 09XX-XXX-XXXX</div></div>
+ <button class="btn-action" onclick="openEmergencyModal()">Edit</button>
  </div>
  <div class="setting-row">
  <div><div class="setting-label">Two-Factor Authentication</div><div class="setting-sub">Extra security for your account</div></div>
@@ -3437,6 +3444,8 @@ function renderChatList() {
  var q = (document.getElementById('chatSearchInput')||{}).value || '';
  q = q.toLowerCase();
  if(q) chats = chats.filter(function(c){ return c.name.toLowerCase().indexOf(q) !== -1; });
+ // Pin Rich.AI to top
+ chats = chats.slice().sort(function(a,b){ return (b.isAI?1:0)-(a.isAI?1:0); });
  var html = '';
  for(var i=0;i<chats.length;i++){
   var c = chats[i];
@@ -4825,6 +4834,40 @@ window.addEventListener('DOMContentLoaded', () => {
 
 </script>
 
+<!-- EMERGENCY CONTACT MODAL -->
+<div class="modal-overlay" id="emergencyModal" onclick="if(event.target===this)closeEmergencyModal()">
+ <div class="modal" onclick="event.stopPropagation()" style="max-width:420px;width:100%;">
+  <div class="modal-header">
+   <div class="modal-title">&#128222; Emergency Contact</div>
+   <button class="modal-close" onclick="closeEmergencyModal()">&#x2715;</button>
+  </div>
+  <div style="padding:24px;display:flex;flex-direction:column;gap:16px;">
+   <div class="field">
+    <label>Contact Name</label>
+    <div class="input-wrap">
+     <input type="text" id="emergencyName" placeholder="Full name of emergency contact">
+    </div>
+   </div>
+   <div class="field">
+    <label>Contact Number</label>
+    <div class="input-wrap">
+     <input type="text" id="emergencyPhone" placeholder="e.g. 09XX-XXX-XXXX">
+    </div>
+   </div>
+   <div class="field">
+    <label>Relationship</label>
+    <div class="input-wrap">
+     <input type="text" id="emergencyRelation" placeholder="e.g. Mother, Father, Sibling">
+    </div>
+   </div>
+  </div>
+  <div class="modal-footer">
+   <button class="btn-action primary" onclick="saveEmergencyContact()">Save Changes</button>
+   <button class="btn-action" onclick="closeEmergencyModal()">Cancel</button>
+  </div>
+ </div>
+</div>
+
 <!-- ADMIN LOGIN MODAL -->
 <div class="modal-overlay" id="adminLoginModal" onclick="if(event.target===this)closeAdminLogin()" style="z-index:9999;">
  <div class="modal" style="max-width:400px;width:100%;border-top:4px solid #FF8F00;">
@@ -4939,6 +4982,38 @@ function doAdminLogin() {
   document.getElementById('adminLoginPass').value = '';
  }
 }
+
+function openEmergencyModal() {
+  var display = document.getElementById('emergencyContactDisplay');
+  var current = display ? display.textContent : 'Maria Dela Cruz · 09XX-XXX-XXXX';
+  var parts = current.split(' · ');
+  var name = parts[0] || '';
+  var phone = parts[1] || '';
+  document.getElementById('emergencyName').value = name !== 'Maria Dela Cruz' ? name : '';
+  document.getElementById('emergencyPhone').value = phone !== '09XX-XXX-XXXX' ? phone : '';
+  document.getElementById('emergencyRelation').value = '';
+  document.getElementById('emergencyModal').classList.add('open');
+  setTimeout(function(){ document.getElementById('emergencyName').focus(); }, 100);
+}
+function closeEmergencyModal() {
+  document.getElementById('emergencyModal').classList.remove('open');
+}
+function saveEmergencyContact() {
+  var name = document.getElementById('emergencyName').value.trim();
+  var phone = document.getElementById('emergencyPhone').value.trim();
+  var relation = document.getElementById('emergencyRelation').value.trim();
+  if (!name || !phone) {
+    alert('Please fill in at least the contact name and number.');
+    return;
+  }
+  var display = name + ' · ' + phone + (relation ? ' (' + relation + ')' : '');
+  var el = document.getElementById('emergencyContactDisplay');
+  if (el) el.textContent = display;
+  var profileEl = document.getElementById('pInfoEmergency');
+  if (profileEl) profileEl.textContent = display;
+  closeEmergencyModal();
+}
+
 var editingUserIndex = -1;
 function openUserMgmt() {
  renderUserMgmtList();
